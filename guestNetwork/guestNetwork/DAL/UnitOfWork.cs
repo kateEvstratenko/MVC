@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using guestNetwork.Models;
+
+namespace guestNetwork.DAL
+{
+    public class UnitOfWork
+    {
+        private ApplicationDbContext context = new ApplicationDbContext();
+        private GuestNetworkRepository<User> userRepository;
+        private GuestNetworkRepository<Advertisement> advertisementRepository;
+        private GuestNetworkRepository<Language> languageRepository;
+
+        public GuestNetworkRepository<User> UserRepository
+        {
+            get 
+            {
+                if (userRepository == null)
+                {
+                    userRepository = new GuestNetworkRepository<User>(context);
+                }
+                return userRepository;
+            }
+        }
+
+        public GuestNetworkRepository<Advertisement> AdvertisementRepository
+        {
+            get 
+            { 
+                if (advertisementRepository == null)
+                {
+                    advertisementRepository = new GuestNetworkRepository<Advertisement>(context);
+                }
+                return advertisementRepository;
+            }
+        }
+
+        public GuestNetworkRepository<Language> LanguageRepository
+        {
+            get
+            {
+                if (languageRepository == null)
+                {
+                    languageRepository = new GuestNetworkRepository<Language>(context);
+                }
+                return languageRepository;
+            }
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+    }
+}
