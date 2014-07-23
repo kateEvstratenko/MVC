@@ -178,9 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407231326512_first.cs" />
-    <Compile Include="Migrations\201407231326512_first.Designer.cs">
-      <DependentUpon>201407231326512_first.cs</DependentUpon>
+    <Compile Include="Migrations\201407231511206_first.cs" />
+    <Compile Include="Migrations\201407231511206_first.Designer.cs">
+      <DependentUpon>201407231511206_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -255,8 +255,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407231326512_first.resx">
-      <DependentUpon>201407231326512_first.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407231511206_first.resx">
+      <DependentUpon>201407231511206_first.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

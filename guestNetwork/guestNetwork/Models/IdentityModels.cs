@@ -22,12 +22,7 @@ namespace guestNetwork.Models
         //public  string Email { get; set; }
         public virtual ICollection<Language> Languages { get; set; }
         public virtual ICollection<Advertisement> Advertisements { get; set; }
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User, int> manager)
-        {
-            var userIdentity = await manager.CreateIdentityAsync(
-                this, DefaultAuthenticationTypes.ApplicationCookie);
-            return userIdentity;
-        } 
+
     }
 
     public class CustomRole : IdentityRole<int, CustomUserRole>
@@ -55,8 +50,8 @@ namespace guestNetwork.Models
 
     public class Advertisement
     {
-        public long Id { get; set; }
-        public string UserId { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
 
         //public long UserResponseId { }
         public string Title { get; set; }

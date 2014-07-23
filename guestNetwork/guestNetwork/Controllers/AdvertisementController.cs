@@ -15,7 +15,7 @@ namespace guestNetwork.Controllers
 {
     public class AdvertisementController : Controller
     {
-        private UnitOfWork uow = new UnitOfWork();
+        private readonly UnitOfWork uow = new UnitOfWork();
 
         // GET: /Advertisement/
         public ActionResult Index()
@@ -53,7 +53,7 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                //advertisement.UserId = uow.UserRepository.Get(User.Identity.GetUserId());
+                advertisement.UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id;
                 uow.AdvertisementRepository.Insert(advertisement);
                 uow.Save();
                 return RedirectToAction("Index");
@@ -63,13 +63,13 @@ namespace guestNetwork.Controllers
         }
 
         // GET: /Advertisement/Edit/5
-      /*  public ActionResult Edit(long? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Advertisement advertisement = db.Advertisements.Find(id);
+            }*/
+            Advertisement advertisement = uow.AdvertisementRepository.Get(id);
             if (advertisement == null)
             {
                 return HttpNotFound();
@@ -86,21 +86,21 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(advertisement).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.AdvertisementRepository.Update(advertisement);
+                uow.Save();
                 return RedirectToAction("Index");
             }
             return View(advertisement);
         }
 
         // GET: /Advertisement/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Advertisement advertisement = db.Advertisements.Find(id);
+            }*/
+            Advertisement advertisement = uow.AdvertisementRepository.Get(id);
             if (advertisement == null)
             {
                 return HttpNotFound();
@@ -111,15 +111,14 @@ namespace guestNetwork.Controllers
         // POST: /Advertisement/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Advertisement advertisement = db.Advertisements.Find(id);
-            db.Advertisements.Remove(advertisement);
-            db.SaveChanges();
+            uow.AdvertisementRepository.Delete(id);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

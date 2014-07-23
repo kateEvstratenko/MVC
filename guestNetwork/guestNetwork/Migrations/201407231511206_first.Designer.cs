@@ -13,7 +13,7 @@ namespace guestNetwork.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201407231326512_first"; }
+            get { return "201407231511206_first"; }
         }
         
         string IMigrationMetadata.Source

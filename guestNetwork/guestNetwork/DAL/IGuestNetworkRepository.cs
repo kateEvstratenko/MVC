@@ -8,7 +8,7 @@ namespace guestNetwork.DAL
     public interface IGuestNetworkRepository<T> where T:class
     {
         void Insert(T entity);
-        void Delete(long id);
+        void Delete(int id);
         void Update(T entity);
         T Get(int id);
         IEnumerable<T> GetAll();

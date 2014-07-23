@@ -11,16 +11,15 @@ namespace guestNetwork.Migrations
                 "dbo.Advertisements",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
-                        UserId = c.String(),
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Int(nullable: false),
                         Title = c.String(),
                         Content = c.String(),
                         Type = c.Int(nullable: false),
-                        User_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -126,7 +125,7 @@ namespace guestNetwork.Migrations
             DropForeignKey("dbo.LanguageUsers", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.LanguageUsers", "Language_Id", "dbo.Languages");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Advertisements", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Advertisements", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.LanguageUsers", new[] { "User_Id" });
             DropIndex("dbo.LanguageUsers", new[] { "Language_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -135,7 +134,7 @@ namespace guestNetwork.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Advertisements", new[] { "User_Id" });
+            DropIndex("dbo.Advertisements", new[] { "UserId" });
             DropTable("dbo.LanguageUsers");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");

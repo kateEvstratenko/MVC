@@ -23,7 +23,7 @@ namespace guestNetwork.DAL
             dbSet.Add(entity);
         }
 
-        public void Delete(long id)
+        public void Delete(int id)
         {
             var entity = dbSet.Find(id);
             dbSet.Attach(entity);

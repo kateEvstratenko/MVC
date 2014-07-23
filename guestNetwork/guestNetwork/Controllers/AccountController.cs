@@ -25,6 +25,7 @@ namespace guestNetwork.Controllers
         {
             UserManager = userManager;
         }
+        /*Что-то не так*/
 
         public UserManager<User, int> UserManager { get; private set; }
 
