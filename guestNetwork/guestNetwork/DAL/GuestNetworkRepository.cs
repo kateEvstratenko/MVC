@@ -36,7 +36,7 @@ namespace guestNetwork.DAL
             context.Entry(entity).State = EntityState.Modified;
         }
 
-        public T Get(long id)
+        public T Get(int id)
         {
             return dbSet.Find(id);
         }

@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using guestNetwork.Models;
+using guestNetwork.DAL;
 
 namespace guestNetwork.Controllers
 {
@@ -16,16 +17,16 @@ namespace guestNetwork.Controllers
     public class AccountController : Controller
     {
         public AccountController()
-            : this(new UserManager<User>(new UserStore<User>(new ApplicationDbContext())))
+            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(new ApplicationDbContext())))
         {
         }
 
-        public AccountController(UserManager<User> userManager)
+        public AccountController(UserManager<User, int> userManager)
         {
             UserManager = userManager;
         }
 
-        public UserManager<User> UserManager { get; private set; }
+        public UserManager<User, int> UserManager { get; private set; }
 
         //
         // GET: /Account/Login
@@ -102,7 +103,7 @@ namespace guestNetwork.Controllers
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
-            IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+            IdentityResult result = await UserManager.RemoveLoginAsync(Int32.Parse(User.Identity.GetUserId()), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
             {
                 message = ManageMessageId.RemoveLoginSuccess;
@@ -126,7 +127,19 @@ namespace guestNetwork.Controllers
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
-            return View();
+
+            var uow = new UnitOfWork();
+            var currentUser = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
+            var model = new ManageUserViewModel()
+            {
+                Firstname = currentUser.Firstname,
+                Surname = currentUser.Surname,
+                Country = currentUser.Country,
+                City = currentUser.City,
+                Email = currentUser.Email
+            };
+
+            return View(model);
         }
 
         //
@@ -135,14 +148,14 @@ namespace guestNetwork.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
-            bool hasPassword = HasPassword();
+            bool hasPassword = HasPassword(); 
             ViewBag.HasLocalPassword = hasPassword;
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasPassword)
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    IdentityResult result = await UserManager.ChangePasswordAsync(Int32.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -164,7 +177,7 @@ namespace guestNetwork.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    IdentityResult result = await UserManager.AddPasswordAsync(Int32.Parse(User.Identity.GetUserId()), model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
@@ -237,7 +250,7 @@ namespace guestNetwork.Controllers
             {
                 return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
             }
-            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
+            var result = await UserManager.AddLoginAsync(Int32.Parse(User.Identity.GetUserId()), loginInfo.Login);
             if (result.Succeeded)
             {
                 return RedirectToAction("Manage");
@@ -304,7 +317,7 @@ namespace guestNetwork.Controllers
         [ChildActionOnly]
         public ActionResult RemoveAccountList()
         {
-            var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
+            var linkedAccounts = UserManager.GetLogins(Int32.Parse(User.Identity.GetUserId()));
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
@@ -348,7 +361,8 @@ namespace guestNetwork.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(Int32.Parse(userId));
             if (user != null)
             {
                 return user.PasswordHash != null;

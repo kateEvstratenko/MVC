@@ -9,7 +9,7 @@ namespace guestNetwork.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(guestNetwork.Models.ApplicationDbContext context)

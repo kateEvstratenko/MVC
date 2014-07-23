@@ -10,7 +10,7 @@ namespace guestNetwork.DAL
         void Insert(T entity);
         void Delete(long id);
         void Update(T entity);
-        T Get(long id);
+        T Get(int id);
         IEnumerable<T> GetAll();
         void Save(); //???
     }
