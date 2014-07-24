@@ -19,9 +19,9 @@ namespace guestNetwork.Models
         public  string Surname { get; set; }
         public  string Country { get; set; }
         public  string City { get; set; }
-        //public  string Email { get; set; }
         public virtual ICollection<Language> Languages { get; set; }
         public virtual ICollection<Advertisement> Advertisements { get; set; }
+        public virtual ICollection<Response> Responses { get; set; } 
 
     }
 
@@ -52,12 +52,21 @@ namespace guestNetwork.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-
-        //public long UserResponseId { }
         public string Title { get; set; }
         public string Content { get; set; }
         public virtual Type Type { get; set; }
         public virtual User User { get; set; }
+        public virtual Response Response { get; set; }
+    }
+
+    public class Response
+    {
+        [Key, ForeignKey("Advertisement")]
+        public int AdvertisementId { get; set; }
+        public string Message { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+        public virtual Advertisement Advertisement{ get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
@@ -68,5 +77,7 @@ namespace guestNetwork.Models
         }
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Language> Languages { get; set; }
+
+        public System.Data.Entity.DbSet<guestNetwork.Models.Response> Responses { get; set; }
     }
 }

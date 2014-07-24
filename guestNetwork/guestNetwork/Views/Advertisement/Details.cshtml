@@ -1,4 +1,5 @@
-﻿@model guestNetwork.Models.Advertisement
+﻿@using Microsoft.AspNet.Identity
+@model guestNetwork.Models.Advertisement
 
 @{
     ViewBag.Title = "Details";
@@ -46,6 +47,26 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (Request.IsAuthenticated )
+    {
+        if (Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
+        {
+            @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) @(" | ")
+        }
+        else
+        {
+            if (Model.Response == null)
+            {
+                <div id="responseForm">
+                    @Ajax.ActionLink("Response to advertisement", "Create", "Response", new {id = Model.Id}, new AjaxOptions {UpdateTargetId = "responseForm"})
+                </div>
+            }
+        }
+    }
+
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+@Scripts.Render("~/Scripts/jquery-1.10.2.js")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")

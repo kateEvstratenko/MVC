@@ -163,8 +163,65 @@ D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Fa
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Google.xml
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csprojResolveAssemblyReference.cache
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.dll
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.pdb
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\guestNetwork.dll.config
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\guestNetwork.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\guestNetwork.pdb
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Antlr3.Runtime.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\EntityFramework.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\EntityFramework.SqlServer.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Facebook.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Google.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Twitter.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Web.Infrastructure.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Newtonsoft.Json.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Owin.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Helpers.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Mvc.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Optimization.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Razor.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.WebPages.Deployment.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.WebPages.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.WebPages.Razor.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\WebGrease.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\EntityFramework.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\EntityFramework.SqlServer.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Helpers.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Mvc.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Optimization.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.Razor.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.WebPages.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.WebPages.Deployment.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\System.Web.WebPages.Razor.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Newtonsoft.Json.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Antlr3.Runtime.pdb
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Facebook.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Google.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Twitter.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csprojResolveAssemblyReference.cache
+D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.first.resources
+D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csproj.GenerateResource.Cache
+D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.first.resources
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csproj.GenerateResource.Cache
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csprojResolveAssemblyReference.cache

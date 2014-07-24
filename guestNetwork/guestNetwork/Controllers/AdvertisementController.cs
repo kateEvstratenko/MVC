@@ -23,6 +23,11 @@ namespace guestNetwork.Controllers
             return View(uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList());
         }
 
+        public ActionResult ViewAll()
+        {
+            return View(uow.AdvertisementRepository.GetAll());
+        }
+
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id)
         {
@@ -117,6 +122,12 @@ namespace guestNetwork.Controllers
             uow.Save();
             return RedirectToAction("Index");
         }
+
+
+        /*public ActionResult Respond()
+        {
+            
+        }*/
 
         /*protected override void Dispose(bool disposing)
         {

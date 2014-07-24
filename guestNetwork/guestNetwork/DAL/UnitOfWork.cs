@@ -12,6 +12,7 @@ namespace guestNetwork.DAL
         private GuestNetworkRepository<User> userRepository;
         private GuestNetworkRepository<Advertisement> advertisementRepository;
         private GuestNetworkRepository<Language> languageRepository;
+        private GuestNetworkRepository<Response> responseRepository;
 
         public GuestNetworkRepository<User> UserRepository
         {
@@ -46,6 +47,18 @@ namespace guestNetwork.DAL
                     languageRepository = new GuestNetworkRepository<Language>(context);
                 }
                 return languageRepository;
+            }
+        }
+
+        public GuestNetworkRepository<Response> ResponseRepository
+        {
+            get
+            {
+                if (responseRepository == null)
+                {
+                    responseRepository = new GuestNetworkRepository<Response>(context);
+                }
+                return responseRepository;
             }
         }
 

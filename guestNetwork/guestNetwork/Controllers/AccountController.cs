@@ -37,6 +37,20 @@ namespace guestNetwork.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+        public ActionResult Details(int id)
+        {
+            /*if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }*/
+            UnitOfWork uow = new UnitOfWork();
+            User user = uow.UserRepository.Get(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
 
         //
         // POST: /Account/Login
