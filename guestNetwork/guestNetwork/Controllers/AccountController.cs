@@ -24,6 +24,11 @@ namespace guestNetwork.Controllers
         public AccountController(UserManager<User, int> userManager)
         {
             UserManager = userManager;
+            UserManager.UserValidator = new UserValidator<User, int>(UserManager)
+            {
+                RequireUniqueEmail = true,
+                //AllowOnlyAlphanumericUserNames = false
+            };
         }
         /*Что-то не так*/
 
@@ -94,7 +99,16 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User() { UserName = model.UserName, Email = model.Email, Firstname = model.Firstname, Surname = model.Surname, Country = model.Country, City = model.City };
+                var user = new User()
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    Firstname = model.Firstname, 
+                    Surname = model.Surname,
+                    Country = model.Country,
+                    City = model.City
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
