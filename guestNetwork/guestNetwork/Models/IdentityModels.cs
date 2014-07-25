@@ -77,7 +77,6 @@ namespace guestNetwork.Models
         }
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Language> Languages { get; set; }
-
-        public System.Data.Entity.DbSet<guestNetwork.Models.Response> Responses { get; set; }
+        public DbSet<Response> Responses { get; set; }
     }
 }

@@ -1,15 +1,8 @@
 ﻿@model IEnumerable<guestNetwork.Models.Advertisement>
 
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table advertisement">
     <tr>
         <th>
@@ -22,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
-            @Html.DisplayName("Responsed User")
+            @Html.DisplayNameFor(model => model.User.UserName)
         </th>
         <th></th>
     </tr>
@@ -43,11 +36,8 @@
                 @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id }, null)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
             </td>
         </tr>
     }
-
 </table>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<guestNetwork.Models.Advertisement>
+﻿@model guestNetwork.Models.FilterAdvertisementViewModel
 
 @{
     ViewBag.Title = "All Homes";
@@ -7,42 +7,16 @@
 
 <h2>Search Home</h2>
 
-<table class="table advertisement">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </th>
-        <th></th>
-    </tr>
+@using (@Ajax.BeginForm("ViewAdvertisementsList", "Advertisement", new AjaxOptions { UpdateTargetId = "filterForm" }))
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.Type))))
+            <input type="submit" value="Filter" class="btn btn-default" />
+        </div>
+    </div>
+}
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id}, null)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) 
-            </td>
-        </tr>
-    }
-
-</table>
+<div id="filterForm">
+    @Html.Action("ViewAdvertisementsList")
+</div>

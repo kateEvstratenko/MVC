@@ -49,7 +49,8 @@ namespace guestNetwork.Controllers
             {
                 Id = id,
                 UserId = Int32.Parse(User.Identity.GetUserId()),
-                UserName = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).UserName
+                UserName = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).UserName,
+                //UserName = User.Identity.GetUserName()
             };
             return PartialView("_Create", model);
         }

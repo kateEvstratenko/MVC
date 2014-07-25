@@ -25,9 +25,22 @@ namespace guestNetwork.Controllers
 
         public ActionResult ViewAll()
         {
-            return View(uow.AdvertisementRepository.GetAll());
+            return View(new FilterAdvertisementViewModel());
         }
 
+        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model)
+        {
+            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
+
+            if (model == null)
+            {
+                return PartialView("_AdvertisementsList", advertisements);
+            }
+            else
+            {
+                return PartialView("_AdvertisementsList", advertisements.Where(item => item.Type == model.Type));
+            }
+        }
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id)
         {
