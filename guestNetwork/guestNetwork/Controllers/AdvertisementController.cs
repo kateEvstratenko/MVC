@@ -32,14 +32,22 @@ namespace guestNetwork.Controllers
         {
             var advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
-            if (model == null)
+            if (model != null)
             {
-                return PartialView("_AdvertisementsList", advertisements);
+                var onlyActiveAdvertisements = model.onlyActiveAdvertisements;
+
+                if (onlyActiveAdvertisements)
+                {
+                    advertisements = advertisements.Where(item => item.Response == null).ToList();
+                }
+
+                if (model.advertisementViewType != AdvertisementViewType.All)
+                {
+                    advertisements = advertisements.Where(item => item.Type.ToString() == model.advertisementViewType.ToString()).ToList();
+                }
             }
-            else
-            {
-                return PartialView("_AdvertisementsList", advertisements.Where(item => item.Type == model.Type));
-            }
+
+            return PartialView("_AdvertisementsList", advertisements);  
         }
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id)
