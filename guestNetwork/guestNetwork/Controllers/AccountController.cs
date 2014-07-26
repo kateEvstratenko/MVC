@@ -16,8 +16,9 @@ namespace guestNetwork.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private static UnitOfWork uow = new UnitOfWork();
         public AccountController()
-            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(new ApplicationDbContext())))
+            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(uow.context)))
         {
         }
 
@@ -87,9 +88,16 @@ namespace guestNetwork.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.LanguagesList = GetLanguages(new []{"1"});
             return View();
         }
 
+
+        private MultiSelectList GetLanguages(string[] selectedValues)
+        {
+            var languages = uow.LanguageRepository.GetAll();
+            return new MultiSelectList(languages, "Id", "Name", selectedValues);
+        }
         //
         // POST: /Account/Register
         [HttpPost]
@@ -99,6 +107,8 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
+                var lan = uow.LanguageRepository.GetAll().Where(x => model.SelectedLanguages.Contains(x.Id.ToString())).ToList();
+
                 var user = new User()
                 {
                     UserName = model.UserName,
@@ -106,7 +116,8 @@ namespace guestNetwork.Controllers
                     Firstname = model.Firstname, 
                     Surname = model.Surname,
                     Country = model.Country,
-                    City = model.City
+                    City = model.City,
+                    Languages = lan
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -144,6 +155,38 @@ namespace guestNetwork.Controllers
             return RedirectToAction("Manage", new { Message = message });
         }
 
+        [HttpGet]
+        public ActionResult ChangePersonalInformation()
+        {
+            var user = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
+            var model = new ChangeUserPersonalInformationViewModel()
+            {
+                Firstname = user.Firstname,
+                Surname = user.Surname,
+                Country = user.Country,
+                City = user.City,
+                Email = user.Email
+            };
+
+            ViewBag.Message = "";
+
+            return PartialView("_ChangePersonalInformation", model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePersonalInformation(ChangeUserPersonalInformationViewModel model)
+        {
+            ViewBag.Message = "Changes saved success";
+            var user = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
+            user.Firstname = model.Firstname;
+            user.Surname = model.Surname;
+            user.Country = model.Country;
+            user.City = model.City;
+
+            uow.UserRepository.Update(user);
+            uow.Save();
+            return PartialView("_ChangePersonalInformation", model);
+        }
         //
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
@@ -159,16 +202,8 @@ namespace guestNetwork.Controllers
 
             var uow = new UnitOfWork();
             var currentUser = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
-            var model = new ManageUserViewModel()
-            {
-                Firstname = currentUser.Firstname,
-                Surname = currentUser.Surname,
-                Country = currentUser.Country,
-                City = currentUser.City,
-                Email = currentUser.Email
-            };
 
-            return View(model);
+            return View();
         }
 
         //

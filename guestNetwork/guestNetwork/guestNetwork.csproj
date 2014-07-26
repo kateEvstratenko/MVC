@@ -173,7 +173,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertisementController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="App_Data\HomeController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="DAL\GuestNetworkRepository.cs" />
     <Compile Include="DAL\IGuestNetworkRepository.cs" />
@@ -257,9 +257,7 @@
     <Content Include="Views\Response\_AddedResponse.cshtml" />
     <Content Include="Views\Advertisement\_AdvertisementsList.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

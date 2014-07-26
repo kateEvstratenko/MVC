@@ -12,7 +12,7 @@
         <p>You're logged in as <strong>@User.Identity.GetUserName()</strong>.</p>
         @Html.ActionLink("My advertisements", "Index", "Advertisement")
 
-        @Html.Partial("_ChangePersonalInformation")
+        @Html.Action("ChangePersonalInformation")
 
         @if (ViewBag.HasLocalPassword)
         {

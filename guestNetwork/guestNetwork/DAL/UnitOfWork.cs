@@ -8,7 +8,7 @@ namespace guestNetwork.DAL
 {
     public class UnitOfWork
     {
-        private ApplicationDbContext context = new ApplicationDbContext();
+        public ApplicationDbContext context = new ApplicationDbContext();
         private GuestNetworkRepository<User> userRepository;
         private GuestNetworkRepository<Advertisement> advertisementRepository;
         private GuestNetworkRepository<Language> languageRepository;
