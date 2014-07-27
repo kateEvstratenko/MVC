@@ -78,6 +78,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -185,8 +191,13 @@
     <Compile Include="Migrations\201407241158375_first.Designer.cs">
       <DependentUpon>201407241158375_first.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407261629015_mainImagePath.cs" />
+    <Compile Include="Migrations\201407261629015_mainImagePath.Designer.cs">
+      <DependentUpon>201407261629015_mainImagePath.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdvertisementViewModels.cs" />
     <Compile Include="Models\FilterViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ResponseViewModels.cs" />
@@ -196,6 +207,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -257,7 +269,9 @@
     <Content Include="Views\Response\_AddedResponse.cshtml" />
     <Content Include="Views\Advertisement\_AdvertisementsList.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -271,6 +285,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407241158375_first.resx">
       <DependentUpon>201407241158375_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407261629015_mainImagePath.resx">
+      <DependentUpon>201407261629015_mainImagePath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

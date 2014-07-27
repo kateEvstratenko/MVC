@@ -10,6 +10,8 @@ using guestNetwork.Models;
 using guestNetwork.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
+using PagedList;
 
 namespace guestNetwork.Controllers
 {
@@ -25,10 +27,10 @@ namespace guestNetwork.Controllers
 
         public ActionResult ViewAll()
         {
-            return View(new FilterAdvertisementViewModel());
+            return View();
         }
 
-        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model)
+        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model, int? page)
         {
             var advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
@@ -47,7 +49,10 @@ namespace guestNetwork.Controllers
                 }
             }
 
-            return PartialView("_AdvertisementsList", advertisements);  
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+
+            return PartialView("_AdvertisementsList", advertisements.ToPagedList(pageNumber, pageSize));  
         }
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id)
@@ -75,17 +80,35 @@ namespace guestNetwork.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,UserId,Title,Content,Type")] Advertisement advertisement)
+        public ActionResult Create( AdvertisementViewModel model)
         {
             if (ModelState.IsValid)
             {
-                advertisement.UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id;
+                var advertisement = new Advertisement()
+                {
+                    Title = model.Title,
+                    Content = model.Content,
+                    Type = model.Type,
+                    UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id,                      
+                };
+
+                var file = Request.Files["file"];
+                var fileName = Path.GetFileName(file.FileName);
+
+                var advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+
+                var path = Path.Combine(Server.MapPath("~/Content/Images"), advPath);
+                file.SaveAs(path);
+
+                advertisement.mainImagePath = "~/Content/Images/" + advPath;
+                
                 uow.AdvertisementRepository.Insert(advertisement);
                 uow.Save();
+
                 return RedirectToAction("Index");
             }
 
-            return View(advertisement);
+            return View(model);
         }
 
         // GET: /Advertisement/Edit/5

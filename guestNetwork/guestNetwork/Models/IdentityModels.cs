@@ -53,6 +53,7 @@ namespace guestNetwork.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Title { get; set; }
+        public string mainImagePath { get; set; }
         public string Content { get; set; }
         public virtual Type Type { get; set; }
         public virtual User User { get; set; }

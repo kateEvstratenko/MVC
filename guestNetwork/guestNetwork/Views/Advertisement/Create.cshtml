@@ -1,4 +1,4 @@
-﻿@model guestNetwork.Models.Advertisement
+﻿@model guestNetwork.Models.AdvertisementViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,7 +7,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Advertisement", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     
@@ -37,6 +37,13 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.Type))))
                 @Html.ValidationMessageFor(model => model.Type)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.mainImagePath, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="file" id="file" accept="image/*" required="required"/>
             </div>
         </div>
 

@@ -40,3 +40,13 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+
+
+.mainAdvertisementsImage{
+    width: 300px;
+}
+
+.pagedList{
+    text-align: center;
+}

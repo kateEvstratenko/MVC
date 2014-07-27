@@ -1,21 +1,26 @@
-﻿@model IEnumerable<guestNetwork.Models.Advertisement>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<guestNetwork.Models.Advertisement>
 
-@{
-    Layout = null;
-}
+<link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("/Content/Site.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
+
 <table class="table advertisement">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            Content
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
+            Type
+        </th>
+        <th>
+            UserName
         </th>
         <th></th>
     </tr>
@@ -23,6 +28,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -41,3 +49,12 @@
         </tr>
     }
 </table>
+
+<div class="pagedList">
+    @Html.PagedListPager(Model, page => Url.Action("ViewAdvertisementsList", new { page }), 
+                        new PagedListRenderOptions { 
+                            LinkToFirstPageFormat = "<<",
+                            LinkToPreviousPageFormat = "Назад",
+                            LinkToNextPageFormat = "Вперед",
+                            LinkToLastPageFormat =  ">>"})
+</div>
