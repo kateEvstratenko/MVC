@@ -51,7 +51,7 @@
     {
         if (Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
         {
-            @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) @(" | ")
+            @Html.ActionLink("Edit", "Edit", new {id = Model.Id, backUrl = ViewBag.BackUrl}) @(" | ")
         }
         else
         {
@@ -64,5 +64,5 @@
         }
     }
 
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BackTo", new { backUrl = ViewBag.BackUrl })
 </p>

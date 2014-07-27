@@ -38,10 +38,10 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id }, null)
+                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id,backUrl = Request.Url.ToString() }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = Request.Url.ToString() })
                 </td>
             </tr>
         }

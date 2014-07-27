@@ -31,6 +31,11 @@ namespace guestNetwork.Controllers
             return PartialView(advertisements.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult BackTo(string backUrl)
+        {
+            return Redirect(backUrl);
+        }
+
         public ActionResult ViewAll()
         {
             return View();
@@ -74,7 +79,7 @@ namespace guestNetwork.Controllers
             return ShowAdvertisements(advertisements, null);
         }
         // GET: /Advertisement/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string backUrl)
         {
             /*if (id == null)
             {
@@ -85,6 +90,8 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.BackUrl = backUrl;
             return View(advertisement);
         }
 
@@ -131,7 +138,7 @@ namespace guestNetwork.Controllers
         }
 
         // GET: /Advertisement/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, string backUrl)
         {
             /*if (id == null)
             {
@@ -142,6 +149,8 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.BackUrl = backUrl;
             return View(advertisement);
         }
 
@@ -150,29 +159,29 @@ namespace guestNetwork.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,UserId,Title,Content,Type")] Advertisement advertisement)
+        public ActionResult Edit(Advertisement advertisement, string backUrl)
         {
             if (ModelState.IsValid)
             {
                 uow.AdvertisementRepository.Update(advertisement);
                 uow.Save();
-                return RedirectToAction("Index");
+                return Redirect(backUrl);
             }
+
+            ViewBag.BackUrl = backUrl;
             return View(advertisement);
         }
 
         // GET: /Advertisement/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, string backUrl)
         {
-            /*if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
             if (advertisement == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.BackUrl = backUrl;
             return View(advertisement);
         }
 
@@ -181,6 +190,12 @@ namespace guestNetwork.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var advertisement = uow.AdvertisementRepository.Get(id);
+            var response = advertisement.Response;
+
+            if (response != null)
+                uow.ResponseRepository.Delete(response.AdvertisementId);
+
             uow.AdvertisementRepository.Delete(id);
             uow.Save();
             return RedirectToAction("Index");

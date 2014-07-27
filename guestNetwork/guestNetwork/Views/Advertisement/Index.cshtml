@@ -26,7 +26,7 @@
             Type
         </th>
         <th>
-            Responsed User
+            Response
         </th>
         <th></th>
     </tr>
@@ -35,7 +35,10 @@
     {
         <tr>
             <td>
-                <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                @if (item.mainImagePath != null)
+                { 
+                    <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -49,13 +52,18 @@
             <td>
                 @if(item.Response != null)
                 { 
-                    @Html.ActionLink(item.Response.User.UserName, "Details", "Account", new { id = item.User.Id }, null)
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Response.Message)
+                    </p>
+                    <p>
+                        User: @Html.ActionLink(item.Response.User.UserName, "Details", "Account", new { id = item.Response.User.Id, backUrl = Request.Url.ToString() }, null)
+                    </p>
                 }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id, backUrl = Request.Url.ToString() }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = Request.Url.ToString() }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id, backUrl = Request.Url.ToString() })
             </td>
         </tr>
     }

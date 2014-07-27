@@ -43,7 +43,7 @@ namespace guestNetwork.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string backUrl)
         {
             /*if (id == null)
             {
@@ -55,6 +55,8 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.BackUrl = backUrl;
             return View(user);
         }
 
@@ -452,6 +454,11 @@ namespace guestNetwork.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public ActionResult BackTo(string backUrl)
+        {
+            return Redirect(backUrl);
         }
 
         private class ChallengeResult : HttpUnauthorizedResult

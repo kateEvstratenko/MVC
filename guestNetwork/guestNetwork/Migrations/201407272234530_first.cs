@@ -14,6 +14,7 @@ namespace guestNetwork.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.Int(nullable: false),
                         Title = c.String(),
+                        mainImagePath = c.String(),
                         Content = c.String(),
                         Type = c.Int(nullable: false),
                     })

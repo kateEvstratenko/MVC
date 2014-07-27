@@ -17,6 +17,7 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.mainImagePath)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
@@ -51,5 +52,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BackTo", new { backUrl = ViewBag.BackUrl })
 </div>
