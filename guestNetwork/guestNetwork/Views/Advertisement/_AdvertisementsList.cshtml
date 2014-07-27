@@ -1,60 +1,60 @@
 ﻿@using PagedList.Mvc;
 @model PagedList.IPagedList<guestNetwork.Models.Advertisement>
 
-<link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("/Content/Site.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
-
-<table class="table advertisement">
-    <tr>
-        <th>
-
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Content
-        </th>
-        <th>
-            Type
-        </th>
-        <th>
-            UserName
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div id="filterForm">
+    <table class="table advertisement">
         <tr>
-            <td>
-                <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id }, null)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-            </td>
-        </tr>
-    }
-</table>
+            <th>
 
-<div class="pagedList">
-    @Html.PagedListPager(Model, page => Url.Action("ViewAdvertisementsList", new { page }), 
-                        new PagedListRenderOptions { 
-                            LinkToFirstPageFormat = "<<",
-                            LinkToPreviousPageFormat = "Назад",
-                            LinkToNextPageFormat = "Вперед",
-                            LinkToLastPageFormat =  ">>"})
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Content
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                UserName
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="pagedList">
+        @Html.PagedListPager(Model, page => Url.Action("ViewAll", new { page }),
+                    new PagedListRenderOptions
+                    {
+                        LinkToFirstPageFormat = "<<",
+                        LinkToPreviousPageFormat = "Назад",
+                        LinkToNextPageFormat = "Вперед",
+                        LinkToLastPageFormat = ">>"
+                    })
+    </div>
 </div>

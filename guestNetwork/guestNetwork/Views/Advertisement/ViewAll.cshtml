@@ -1,34 +1,11 @@
-﻿@model guestNetwork.Models.FilterAdvertisementViewModel
-
-@{
+﻿@{
     ViewBag.Title = "All Homes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Search Home</h2>
 
-@using (@Ajax.BeginForm("ViewAdvertisementsList", "Advertisement", new AjaxOptions { UpdateTargetId = "filterForm" }))
-{
-    <div class="form-group">
-        @Html.LabelFor(model => model.advertisementViewType, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.advertisementViewType, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType))))
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.onlyActiveAdvertisements, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.CheckBoxFor(model => model.onlyActiveAdvertisements)
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Filter" />
-        </div>
-    </div>
-}
+@Html.Action("ShowFilterForm")
 
-<div id="filterForm">
-    @Html.Action("ViewAdvertisementsList", "Advertisement", null)
-</div>
-
+@Html.Action("ShowAdvertisements")

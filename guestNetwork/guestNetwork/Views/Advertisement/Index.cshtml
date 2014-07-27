@@ -1,4 +1,5 @@
-﻿@model IEnumerable<guestNetwork.Models.Advertisement>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<guestNetwork.Models.Advertisement>
 
 @{
     ViewBag.Title = "Index";
@@ -13,19 +14,19 @@
 <table class="table advertisement">
     <tr>
         <th>
-            @Html.DisplayName("Image")
+            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            Content
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            Type
         </th>
         <th>
-            @Html.DisplayName("Responsed User")
+            Responsed User
         </th>
         <th></th>
     </tr>
@@ -60,3 +61,14 @@
     }
 
 </table>
+
+<div class="pagedList">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                    new PagedListRenderOptions
+                    {
+                        LinkToFirstPageFormat = "<<",
+                        LinkToPreviousPageFormat = "Назад",
+                        LinkToNextPageFormat = "Вперед",
+                        LinkToLastPageFormat = ">>"
+                    })
+</div>

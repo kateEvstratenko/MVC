@@ -20,9 +20,15 @@ namespace guestNetwork.Controllers
         private readonly UnitOfWork uow = new UnitOfWork();
 
         // GET: /Advertisement/
-        public ActionResult Index()
+        public ActionResult Index(List<Advertisement> advertisements, int? page)
         {
-            return View(uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList());
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+
+            if(advertisements == null)
+                advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
+
+            return PartialView(advertisements.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult ViewAll()
@@ -30,7 +36,23 @@ namespace guestNetwork.Controllers
             return View();
         }
 
-        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model, int? page)
+        public ActionResult ShowFilterForm(FilterAdvertisementViewModel model)
+        {
+            return PartialView("_FilterForm");
+        }
+
+        public ActionResult ShowAdvertisements(List<Advertisement> advertisements, int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+
+            if (advertisements == null)
+                advertisements = uow.AdvertisementRepository.GetAll().ToList();
+
+            return PartialView("_AdvertisementsList", advertisements.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model)
         {
             var advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
@@ -49,10 +71,7 @@ namespace guestNetwork.Controllers
                 }
             }
 
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
-
-            return PartialView("_AdvertisementsList", advertisements.ToPagedList(pageNumber, pageSize));  
+            return ShowAdvertisements(advertisements, null);
         }
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id)
