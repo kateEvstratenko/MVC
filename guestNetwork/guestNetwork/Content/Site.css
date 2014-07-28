@@ -41,12 +41,51 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.siteContent {
+    width: 1170px;
+    margin: 0 auto;
+}
 
+.banner {
+    background-image: url(../Content/startImage.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 560px;
+}
+
+.title{
+    background-color:skyblue;
+    padding: 20px 0;
+    text-align:center;
+}
 
 .mainAdvertisementsImage{
     width: 300px;
 }
 
+textarea .form-control .advertisementsContent{
+    height: 300px;
+}
+
 .pagedList{
     text-align: center;
+}
+
+.filterForm{
+    margin: 40px 0;
+}
+
+.filterFormItem{
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.filterFormLabel{
+    display: inline-block;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.filterFormControl{
+    display: inline-block;
 }

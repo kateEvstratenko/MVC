@@ -1,22 +1,26 @@
 ﻿@model guestNetwork.Models.FilterAdvertisementViewModel
 
-@using (@Ajax.BeginForm("ViewAdvertisementsList", "Advertisement", new AjaxOptions { UpdateTargetId = "filterForm" }))
+@using (@Ajax.BeginForm("ViewAdvertisementsList", "Advertisement", new { backUrl = ViewBag.Url }, new AjaxOptions { UpdateTargetId = "filterForm" }))
 {
-    <div class="form-group">
-        @Html.LabelFor(model => model.advertisementViewType, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.advertisementViewType, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType))))
+    <div class="filterForm">
+        <div class="filterFormItem">
+            @Html.LabelFor(model => model.advertisementViewType, new { @class = "filterFormLabel" })
+            <div class="filterFormControl">
+                @Html.DropDownListFor(model => model.advertisementViewType, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType))), new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.onlyActiveAdvertisements, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.CheckBoxFor(model => model.onlyActiveAdvertisements)
+
+        <div class="filterFormItem">
+            @Html.LabelFor(model => model.onlyActiveAdvertisements, new { @class = "filterFormLabel" })
+            <div class="filterFormControl">
+                @Html.CheckBoxFor(model => model.onlyActiveAdvertisements)
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Filter" />
+
+        <div class="filterFormItem">
+            <div class="filterFormControl">
+                <input type="submit" class="btn btn-default" value="Filter" />
+            </div>
         </div>
     </div>
 }

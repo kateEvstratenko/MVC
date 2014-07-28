@@ -3,9 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <h2>Search Home</h2>
 
-@Html.Action("ShowFilterForm")
+@Html.Action("ShowFilterForm", new { backUrl = ViewBag.Url })
 
-@Html.Action("ShowAdvertisements")
+@Html.Action("ShowAdvertisements", new { backUrl = ViewBag.Url })

@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Title)
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Content, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Content)
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control advertisementsContent" })
                 @Html.ValidationMessageFor(model => model.Content)
             </div>
         </div>
@@ -35,7 +35,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.Type))))
+                @Html.DropDownListFor(model => model.Type, new SelectList(
+                                                                Enum.GetValues(typeof(guestNetwork.Models.Type))), 
+                                                                    new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Type)
             </div>
         </div>
@@ -43,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.mainImagePath, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="file" id="file" accept="image/*" required="required"/>
+                <input type="file" name="file" id="file" accept="image/*" required="required" class="form-control" />
             </div>
         </div>
 

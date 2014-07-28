@@ -1,9 +1,4 @@
-﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<guestNetwork.Models.Advertisement>
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model IEnumerable<guestNetwork.Models.Advertisement>
 
 <div id="filterForm">
     <table class="table advertisement">
@@ -42,23 +37,12 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
+                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id,backUrl = Request.Url.ToString() }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = ViewBag.Url })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = Request.Url.ToString() })
                 </td>
             </tr>
         }
     </table>
-
-    <div class="pagedList">
-        @Html.PagedListPager(Model, page => Url.Action("ViewAll", new { page }),
-                    new PagedListRenderOptions
-                    {
-                        LinkToFirstPageFormat = "<<",
-                        LinkToPreviousPageFormat = "Prev",
-                        LinkToNextPageFormat = "Next",
-                        LinkToLastPageFormat = ">>"
-                    })
-    </div>
 </div>

@@ -265,6 +265,7 @@
     <Content Include="Views\Response\_AddedResponse.cshtml" />
     <Content Include="Views\Advertisement\_AdvertisementsList.cshtml" />
     <Content Include="Views\Advertisement\_FilterForm.cshtml" />
+    <Content Include="Views\Advertisement\_LastAdvertisements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />

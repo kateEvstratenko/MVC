@@ -20,6 +20,7 @@ namespace guestNetwork.Controllers
         private readonly UnitOfWork uow = new UnitOfWork();
 
         // GET: /Advertisement/
+        [Authorize]
         public ActionResult Index(List<Advertisement> advertisements, int? page)
         {
             int pageNumber = page ?? 1;
@@ -38,15 +39,20 @@ namespace guestNetwork.Controllers
 
         public ActionResult ViewAll()
         {
+            var url = Request.Url.ToString();
+            ViewBag.Url = url;
+
             return View();
         }
 
-        public ActionResult ShowFilterForm(FilterAdvertisementViewModel model)
+        public ActionResult ShowFilterForm(FilterAdvertisementViewModel model, string backUrl)
         {
+            ViewBag.Url = backUrl;
+
             return PartialView("_FilterForm");
         }
 
-        public ActionResult ShowAdvertisements(List<Advertisement> advertisements, int? page)
+        public ActionResult ShowAdvertisements(List<Advertisement> advertisements, int? page, string backUrl)
         {
             int pageNumber = page ?? 1;
             int pageSize = 10;
@@ -54,10 +60,11 @@ namespace guestNetwork.Controllers
             if (advertisements == null)
                 advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
+            ViewBag.Url = backUrl;
             return PartialView("_AdvertisementsList", advertisements.ToPagedList(pageNumber, pageSize));
         }
 
-        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model)
+        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model, string backUrl)
         {
             var advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
@@ -76,7 +83,22 @@ namespace guestNetwork.Controllers
                 }
             }
 
-            return ShowAdvertisements(advertisements, null);
+            return ShowAdvertisements(advertisements, null, backUrl);
+        }
+
+        public ActionResult LastAdvertisements()
+        {
+            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
+            advertisements.Reverse();
+
+            var advertisementsList = new List<Advertisement>();
+            for (int i = 0; i < 3 && i < advertisements.Count; i++)
+            {
+
+                advertisementsList.Add(advertisements[i]);
+            }
+
+            return PartialView("_LastAdvertisements", advertisementsList);
         }
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id, string backUrl)
@@ -115,7 +137,7 @@ namespace guestNetwork.Controllers
                     Title = model.Title,
                     Content = model.Content,
                     Type = model.Type,
-                    UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id,                      
+                    UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id,
                 };
 
                 var file = Request.Files["file"];

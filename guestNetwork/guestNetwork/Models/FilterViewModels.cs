@@ -16,7 +16,7 @@ namespace guestNetwork.Models
     {
         [Display(Name = "Type: ")]
         public AdvertisementViewType advertisementViewType { get; set; }
-        [Display(Name = "Show only active Advertisements")]
+        [Display(Name = "Show only active Advertisements: ")]
         public bool onlyActiveAdvertisements { get; set; }
     }
 }

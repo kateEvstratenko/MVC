@@ -229,3 +229,7 @@ D:\Курсы\MVC\guestNetwork\guestNetwork\bin\PagedList.xml
 D:\Курсы\MVC\guestNetwork\guestNetwork\bin\PagedList.Mvc.xml
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.first.resources
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csproj.GenerateResource.Cache
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\PagedList.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\PagedList.Mvc.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\PagedList.xml
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\PagedList.Mvc.xml
