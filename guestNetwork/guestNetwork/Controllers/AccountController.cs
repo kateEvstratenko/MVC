@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -16,10 +14,11 @@ namespace guestNetwork.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private static UnitOfWork uow = new UnitOfWork();
-        public AccountController()
-            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(uow.context)))
+        private static IUnitOfWork uow;
+        public AccountController(IUnitOfWork uowInstance)
+            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(uowInstance.Context as ApplicationDbContext)))
         {
+            uow = uowInstance;
         }
 
         public AccountController(UserManager<User, int> userManager)
@@ -49,7 +48,6 @@ namespace guestNetwork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }*/
-            UnitOfWork uow = new UnitOfWork();
             User user = uow.UserRepository.Get(id);
             if (user == null)
             {
@@ -202,7 +200,6 @@ namespace guestNetwork.Controllers
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
 
-            var uow = new UnitOfWork();
             var currentUser = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
 
             return View();

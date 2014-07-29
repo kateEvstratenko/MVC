@@ -12,10 +12,15 @@ using Microsoft.AspNet.Identity;
 
 namespace guestNetwork.Controllers
 {
+    [Authorize]
     public class ResponseController : Controller
     {
-        private UnitOfWork uow = new UnitOfWork();
+        private IUnitOfWork uow;
 
+        public ResponseController(IUnitOfWork uowInstance)
+        {
+            uow = uowInstance;
+        }
         // GET: /Response/
         public ActionResult Index()
         {

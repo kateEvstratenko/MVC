@@ -1,65 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Security.Cryptography.X509Certificates;
 using guestNetwork.Models;
 
 namespace guestNetwork.DAL
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
-        public ApplicationDbContext context = new ApplicationDbContext();
-        private GuestNetworkRepository<User> userRepository;
-        private GuestNetworkRepository<Advertisement> advertisementRepository;
-        private GuestNetworkRepository<Language> languageRepository;
-        private GuestNetworkRepository<Response> responseRepository;
+        private readonly IApplicationDbContext context;
+        private readonly IGuestNetworkRepository<User> userRepository;
+        private readonly IGuestNetworkRepository<Advertisement> advertisementRepository;
+        private readonly IGuestNetworkRepository<Language> languageRepository;
+        private readonly IGuestNetworkRepository<Response> responseRepository;
 
-        public GuestNetworkRepository<User> UserRepository
+        public UnitOfWork(IGuestNetworkRepository<User> userInstance,
+            IGuestNetworkRepository<Advertisement> advertisementInstance,
+            IGuestNetworkRepository<Language> languageInstance,
+            IGuestNetworkRepository<Response> responseInstance,
+            IApplicationDbContext contextInstance)
         {
-            get 
-            {
-                if (userRepository == null)
-                {
-                    userRepository = new GuestNetworkRepository<User>(context);
-                }
-                return userRepository;
-            }
+            context = contextInstance;
+            userRepository = userInstance;
+            advertisementRepository = advertisementInstance;
+            languageRepository = languageInstance;
+            responseRepository = responseInstance;
+        }
+        public IGuestNetworkRepository<User> UserRepository
+        {
+            get { return userRepository; }
         }
 
-        public GuestNetworkRepository<Advertisement> AdvertisementRepository
+        public IGuestNetworkRepository<Advertisement> AdvertisementRepository
         {
-            get 
-            { 
-                if (advertisementRepository == null)
-                {
-                    advertisementRepository = new GuestNetworkRepository<Advertisement>(context);
-                }
-                return advertisementRepository;
-            }
+            get { return advertisementRepository; }
         }
 
-        public GuestNetworkRepository<Language> LanguageRepository
+        public IGuestNetworkRepository<Language> LanguageRepository
         {
-            get
-            {
-                if (languageRepository == null)
-                {
-                    languageRepository = new GuestNetworkRepository<Language>(context);
-                }
-                return languageRepository;
-            }
+            get { return languageRepository; }
         }
 
-        public GuestNetworkRepository<Response> ResponseRepository
+        public IGuestNetworkRepository<Response> ResponseRepository
         {
-            get
-            {
-                if (responseRepository == null)
-                {
-                    responseRepository = new GuestNetworkRepository<Response>(context);
-                }
-                return responseRepository;
-            }
+            get { return responseRepository; }
+        }
+
+        public IApplicationDbContext Context
+        {
+            get { return context; }
         }
 
         public void Save()

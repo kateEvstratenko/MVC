@@ -25,7 +25,7 @@
         {
             <tr>
                 <td>
-                    <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                    <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -40,7 +40,7 @@
                     @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id,backUrl = Request.Url.ToString() }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = Request.Url.ToString() })
+                    @Html.ActionLink("Details", "Details", "Advertisement", new { id = item.Id, backUrl = Request.Url.ToString()}, null)
                 </td>
             </tr>
         }

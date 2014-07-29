@@ -1,54 +1,51 @@
 ﻿using guestNetwork.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace guestNetwork.DAL
 {
     public class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T:class
     {
-        internal ApplicationDbContext context;
-        internal DbSet<T> dbSet;
+        internal ApplicationDbContext Context;
+        internal DbSet<T> DbSet;
 
         public GuestNetworkRepository(ApplicationDbContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<T>();
+            Context = context;
+            DbSet = context.Set<T>();
         }
 
         public void Insert(T entity)
         {
-            dbSet.Add(entity);
+            DbSet.Add(entity);
         }
 
         public void Delete(int id)
         {
-            var entity = dbSet.Find(id);
-            dbSet.Attach(entity);
-            dbSet.Remove(entity);
+            var entity = DbSet.Find(id);
+            DbSet.Attach(entity);
+            DbSet.Remove(entity);
         }
 
         public void Update(T entity)
         {
-            dbSet.Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
+            DbSet.Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public T Get(int id)
         {
-            return dbSet.Find(id);
+            return DbSet.Find(id);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return dbSet;
+            return DbSet;
         }
 
        public void Save()
        {
-           context.SaveChanges();
+           Context.SaveChanges();
        }
     }
 }

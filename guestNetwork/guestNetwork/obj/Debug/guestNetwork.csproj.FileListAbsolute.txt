@@ -355,3 +355,12 @@ C:\Users\Катерина\Desktop\!!!\MVC\guestNetwork\guestNetwork\obj\Debug\gu
 C:\Users\Катерина\Desktop\!!!\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csproj.GenerateResource.Cache
 C:\Users\Катерина\Desktop\!!!\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.dll
 C:\Users\Катерина\Desktop\!!!\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.pdb
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Injection.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Common.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Mvc.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\WebActivatorEx.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Injection.pdb
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.xml
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Common.xml
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Mvc.xml

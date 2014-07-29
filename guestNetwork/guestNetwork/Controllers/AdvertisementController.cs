@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using guestNetwork.Models;
 using guestNetwork.DAL;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System.IO;
 using PagedList;
 
 namespace guestNetwork.Controllers
 {
+    [Authorize]
     public class AdvertisementController : Controller
     {
-        private readonly UnitOfWork uow = new UnitOfWork();
+        private readonly IUnitOfWork uow;
+
+        public AdvertisementController(IUnitOfWork uowInstance)
+        {
+            uow = uowInstance;
+        }
 
         // GET: /Advertisement/
         [Authorize]
@@ -85,20 +84,6 @@ namespace guestNetwork.Controllers
             return PartialView("_AdvertisementsList", advertisements);
         }*/
 
-        public ActionResult LastAdvertisements()
-        {
-            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
-            advertisements.Reverse();
-
-            var advertisementsList = new List<Advertisement>();
-            for (int i = 0; i < 3 && i < advertisements.Count; i++)
-            {
-
-                advertisementsList.Add(advertisements[i]);
-            }
-
-            return PartialView("_LastAdvertisements", advertisementsList);
-        }
         // GET: /Advertisement/Details/5
         public ActionResult Details(int id, string backUrl)
         {
@@ -147,7 +132,7 @@ namespace guestNetwork.Controllers
                 var path = Path.Combine(Server.MapPath("~/Content/Images"), advPath);
                 file.SaveAs(path);
 
-                advertisement.mainImagePath = "~/Content/Images/" + advPath;
+                advertisement.MainImagePath = "~/Content/Images/" + advPath;
                 
                 uow.AdvertisementRepository.Insert(advertisement);
                 uow.Save();

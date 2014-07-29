@@ -53,7 +53,7 @@ namespace guestNetwork.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Title { get; set; }
-        public string mainImagePath { get; set; }
+        public string MainImagePath { get; set; }
         public string Content { get; set; }
         public virtual Type Type { get; set; }
         public virtual User User { get; set; }
@@ -70,14 +70,5 @@ namespace guestNetwork.Models
         public virtual Advertisement Advertisement{ get; set; }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection")
-        {
-        }
-        public DbSet<Advertisement> Advertisements { get; set; }
-        public DbSet<Language> Languages { get; set; }
-        public DbSet<Response> Responses { get; set; }
-    }
+    
 }
