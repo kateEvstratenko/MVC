@@ -71,7 +71,7 @@ namespace guestNetwork.Controllers
             {
                 var response = new Response()
                 {
-                    AdvertisementId = responseModel.Id,
+                    Id = responseModel.Id,
                     UserId = responseModel.UserId,
                     Message = responseModel.Message,
                 };

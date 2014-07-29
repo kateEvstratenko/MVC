@@ -364,3 +364,13 @@ D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Injection.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.xml
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Common.xml
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Mvc.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Injection.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Common.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Mvc.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\WebActivatorEx.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Injection.pdb
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Common.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Mvc.xml
+D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.Identityabstractclass.resources

@@ -200,7 +200,7 @@ namespace guestNetwork.Controllers
             var response = advertisement.Response;
 
             if (response != null)
-                uow.ResponseRepository.Delete(response.AdvertisementId);
+                uow.ResponseRepository.Delete(response.Id);
 
             uow.AdvertisementRepository.Delete(id);
             uow.Save();

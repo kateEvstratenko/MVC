@@ -9,7 +9,7 @@ namespace guestNetwork.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
-            System.Diagnostics.Debug.WriteLine("applicationContextCreated");
+            //System.Diagnostics.Debug.WriteLine("applicationContextCreated");
         }
         public IDbSet<Advertisement> Advertisements { get; set; }
         public IDbSet<Language> Languages { get; set; }

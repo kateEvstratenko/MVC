@@ -1,4 +1,4 @@
-using guestNetwork.Models;
+﻿using guestNetwork.Models;
 
 namespace guestNetwork.Migrations
 {
@@ -11,25 +11,23 @@ namespace guestNetwork.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(guestNetwork.Models.ApplicationDbContext context)
         {
-            context.Languages.Add(new Language() {Name = "English"});
-            context.SaveChanges();
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Languages.AddOrUpdate(
+                x => x.Name,
+                new Language() { Name = "English" },
+                new Language() { Name = "Italian" },
+                new Language() { Name = "Français" },
+                new Language() { Name = "Español" },
+                new Language() { Name = "Italiano" },
+                new Language() { Name = "Deutsch" },
+                new Language() { Name = "Português" },
+                new Language() { Name = "Русский" },
+                new Language() { Name = "日本人" }
+                );
         }
     }
 }
