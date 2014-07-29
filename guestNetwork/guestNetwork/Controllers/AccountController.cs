@@ -14,9 +14,9 @@ namespace guestNetwork.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private static IUnitOfWork uow;
+        private readonly IUnitOfWork uow;
         public AccountController(IUnitOfWork uowInstance)
-            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>(uowInstance.Context as ApplicationDbContext)))
+            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>((ApplicationDbContext)uowInstance.Context)))
         {
             uow = uowInstance;
         }
@@ -30,7 +30,6 @@ namespace guestNetwork.Controllers
                 //AllowOnlyAlphanumericUserNames = false
             };
         }
-        /*Что-то не так*/
 
         public UserManager<User, int> UserManager { get; private set; }
 

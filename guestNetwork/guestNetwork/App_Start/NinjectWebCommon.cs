@@ -65,12 +65,13 @@ namespace guestNetwork.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<User>>().To<GuestNetworkRepository<User>>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<Advertisement>>().To<GuestNetworkRepository<Advertisement>>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<Language>>().To<GuestNetworkRepository<Language>>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<Response>>().To<GuestNetworkRepository<Response>>().InRequestScope();
+            kernel.Bind<IGuestNetworkRepository<User>>().To<UserGuestNetworkRepository>().InRequestScope();
+            kernel.Bind<IGuestNetworkRepository<Advertisement>>().To<AdvertisementGuestNetworkRepository>().InRequestScope();
+            kernel.Bind<IGuestNetworkRepository<Language>>().To<LanguageGuestNetworkRepository>().InRequestScope();
+            kernel.Bind<IGuestNetworkRepository<Response>>().To<ResponseGuestNetworkRepository>().InRequestScope();
             
             kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
+            kernel.Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
             
         }
     }

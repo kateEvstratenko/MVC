@@ -1,3 +1,5 @@
+using guestNetwork.Models;
+
 namespace guestNetwork.Migrations
 {
     using System;
@@ -14,6 +16,8 @@ namespace guestNetwork.Migrations
 
         protected override void Seed(guestNetwork.Models.ApplicationDbContext context)
         {
+            context.Languages.Add(new Language() {Name = "English"});
+            context.SaveChanges();
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

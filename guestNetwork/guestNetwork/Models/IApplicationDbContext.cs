@@ -1,13 +1,16 @@
 ﻿using System.Data.Entity;
+using Ninject.Activation;
 
 namespace guestNetwork.Models
 {
     public interface IApplicationDbContext
     {
-        DbSet<Advertisement> Advertisements { get; set; }
-        DbSet<Language> Languages { get; set; }
-        DbSet<Response> Responses { get; set; }
+        IDbSet<User> Users { get; set; }
+        IDbSet<Advertisement> Advertisements { get; set; }
+        IDbSet<Language> Languages { get; set; }
+        IDbSet<Response> Responses { get; set; }
 
         void SaveChanges();
+        void MarkChanged(object entity);
     }
 }

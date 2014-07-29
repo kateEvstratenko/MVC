@@ -1,18 +1,18 @@
-﻿using guestNetwork.Models;
+﻿using Antlr.Runtime.Misc;
+using guestNetwork.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace guestNetwork.DAL
 {
-    public class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T:class
+    public abstract class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T : class
     {
-        internal ApplicationDbContext Context;
-        internal DbSet<T> DbSet;
-
-        public GuestNetworkRepository(ApplicationDbContext context)
+        internal IApplicationDbContext Context;
+        internal IDbSet<T> DbSet;
+        protected GuestNetworkRepository(IApplicationDbContext context, Func<IApplicationDbContext, IDbSet<T>> dbSetSelector)
         {
             Context = context;
-            DbSet = context.Set<T>();
+            DbSet = dbSetSelector(context);
         }
 
         public void Insert(T entity)
@@ -30,7 +30,7 @@ namespace guestNetwork.DAL
         public void Update(T entity)
         {
             DbSet.Attach(entity);
-            Context.Entry(entity).State = EntityState.Modified;
+            Context.MarkChanged(entity);
         }
 
         public T Get(int id)
