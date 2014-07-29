@@ -6,7 +6,7 @@ using guestNetwork.Models;
 
 namespace guestNetwork.DAL
 {
-    public class UnitOfWork
+    public class UnitOfWork: IUnitOfWork
     {
         public ApplicationDbContext context = new ApplicationDbContext();
         private GuestNetworkRepository<User> userRepository;

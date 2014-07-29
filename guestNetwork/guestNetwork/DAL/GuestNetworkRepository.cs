@@ -43,7 +43,7 @@ namespace guestNetwork.DAL
 
         public IEnumerable<T> GetAll()
         {
-            return dbSet.ToList(); //???
+            return dbSet;
         }
 
        public void Save()

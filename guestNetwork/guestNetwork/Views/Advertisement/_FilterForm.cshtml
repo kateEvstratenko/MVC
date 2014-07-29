@@ -1,6 +1,6 @@
 ﻿@model guestNetwork.Models.FilterAdvertisementViewModel
 
-@using (@Ajax.BeginForm("ViewAdvertisementsList", "Advertisement", new { backUrl = ViewBag.Url }, new AjaxOptions { UpdateTargetId = "filterForm" }))
+@using (@Html.BeginForm("ViewAdvertisementsList", "Advertisement", new { backUrl = ViewBag.Url }))
 {
     <div class="filterForm">
         <div class="filterFormItem">

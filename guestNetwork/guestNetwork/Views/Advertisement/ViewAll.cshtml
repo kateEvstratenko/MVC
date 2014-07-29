@@ -1,10 +1,99 @@
-﻿@{
-    ViewBag.Title = "All Homes";
+﻿@using System.Web.UI.WebControls
+@using guestNetwork.Models
+@using PagedList.Mvc;
+@model PagedList.IPagedList<guestNetwork.Models.Advertisement>
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Search Home</h2>
+@using (@Html.BeginForm("ViewAll", "Advertisement", new { backUrl = ViewBag.Url, FormMethod.Get}))
+{
+    <div class="filterForm">
+        <div class="filterFormItem">
+            @Html.Label("Type", new { @class = "filterFormLabel" })
+            <div class="filterFormControl">
+                @Html.DropDownList("type", new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType)), ViewBag.type), new { @class = "form-control" })
+            </div>
+        </div>
 
-@Html.Action("ShowFilterForm", new { backUrl = ViewBag.Url })
+        <div class="filterFormItem">
+            @Html.Label("dhgdgh", new { @class = "filterFormLabel" })
+            <div class="filterFormControl">
+                @if  (ViewBag.onlyActive as string == "true")
+                {
+                    @Html.CheckBox("onlyActive", true)
+                }
+                else
+                {
+                    @Html.CheckBox("onlyActive", false)
+                }
+            </div>
+        </div>
 
-@Html.Action("ShowAdvertisements", new { backUrl = ViewBag.Url })
+        <div class="filterFormItem">
+            <div class="filterFormControl">
+                <input type="submit" class="btn btn-default" value="Filter" />
+            </div>
+        </div>
+    </div>
+}
+
+<div id="filterForm">
+    <table class="table advertisement">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Content
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                UserName
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.mainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = ViewBag.Url })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="pagedList">
+
+        @Html.PagedListPager(Model, page => Url.Action("ViewAll", "Advertisement", new { page, backUrl = ViewBag.Url, onlyActive = ViewBag.onlyActive, type = ViewBag.type }),
+            new PagedListRenderOptions
+            {
+                LinkToFirstPageFormat = "<<",
+                LinkToPreviousPageFormat = "Prev",
+                LinkToNextPageFormat = "Next",
+                LinkToLastPageFormat = ">>"
+            })
+    </div>
+</div>

@@ -1,4 +1,7 @@
-﻿@using PagedList.Mvc;
+﻿@{
+    /*@using System.Web.UI.WebControls
+@using guestNetwork.Models
+@using PagedList.Mvc;
 @model PagedList.IPagedList<guestNetwork.Models.Advertisement>
 
 @{
@@ -52,13 +55,16 @@
     </table>
 
     <div class="pagedList">
-        @Html.PagedListPager(Model, page => Url.Action("ViewAll", new { page }),
-                    new PagedListRenderOptions
-                    {
-                        LinkToFirstPageFormat = "<<",
-                        LinkToPreviousPageFormat = "Prev",
-                        LinkToNextPageFormat = "Next",
-                        LinkToLastPageFormat = ">>"
-                    })
+
+        @Html.PagedListPager(Model, page => Url.Action("ViewAll", "Advertisement", new { model = ViewBag.FilterModel, page = page, backUrl = ViewBag.Url }),
+            new PagedListRenderOptions
+            {
+                LinkToFirstPageFormat = "<<",
+                LinkToPreviousPageFormat = "Prev",
+                LinkToNextPageFormat = "Next",
+                LinkToLastPageFormat = ">>"
+            })
     </div>
 </div>
+*/
+}

@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="DAL\GuestNetworkRepository.cs" />
     <Compile Include="DAL\IGuestNetworkRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -263,9 +264,9 @@
     <Content Include="Views\Response\Index.cshtml" />
     <Content Include="Views\Response\_Create.cshtml" />
     <Content Include="Views\Response\_AddedResponse.cshtml" />
-    <Content Include="Views\Advertisement\_AdvertisementsList.cshtml" />
     <Content Include="Views\Advertisement\_FilterForm.cshtml" />
     <Content Include="Views\Advertisement\_LastAdvertisements.cshtml" />
+    <Content Include="Views\Advertisement\_AdvertisementsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />

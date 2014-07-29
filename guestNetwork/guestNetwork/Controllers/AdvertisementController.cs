@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using guestNetwork.Models;
 using guestNetwork.DAL;
 using Microsoft.AspNet.Identity;
@@ -24,7 +26,7 @@ namespace guestNetwork.Controllers
         public ActionResult Index(List<Advertisement> advertisements, int? page)
         {
             int pageNumber = page ?? 1;
-            int pageSize = 10;
+            var pageSize = 10;
 
             if(advertisements == null)
                 advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
@@ -37,54 +39,51 @@ namespace guestNetwork.Controllers
             return Redirect(backUrl);
         }
 
-        public ActionResult ViewAll()
+        public ActionResult ViewAll(string backUrl, bool? onlyActive, AdvertisementViewType? type, int? page)
         {
+           /* if (Request.HttpMethod == "GET")
+            {
+                page = 1;
+            } */
+
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+
+            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
+
+           // if (filterModel != null)
+            {
+                if (onlyActive == true)
+                {
+                    advertisements = advertisements.Where(item => item.Response == null).ToList();
+                }
+
+                if (type != null && type != AdvertisementViewType.All)
+                {
+                    advertisements = advertisements.Where(item => item.Type.ToString() == type.ToString()).ToList();
+                }
+            }
+
             var url = Request.Url.ToString();
             ViewBag.Url = url;
+            ViewBag.onlyActive = onlyActive;
+            ViewBag.type = type;
 
-            return View();
+            return View("ViewAll", advertisements.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult ShowFilterForm(FilterAdvertisementViewModel model, string backUrl)
         {
             ViewBag.Url = backUrl;
 
-            return PartialView("_FilterForm");
+            return PartialView("_FilterForm", model);
         }
 
-        public ActionResult ShowAdvertisements(List<Advertisement> advertisements, int? page, string backUrl)
+        /*public ActionResult ViewAdvertisements(FilterAdvertisementViewModel model, IPagedList<Advertisement> advertisements)
         {
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
-
-            if (advertisements == null)
-                advertisements = uow.AdvertisementRepository.GetAll().ToList();
-
-            ViewBag.Url = backUrl;
-            return PartialView("_AdvertisementsList", advertisements.ToPagedList(pageNumber, pageSize));
-        }
-
-        public ActionResult ViewAdvertisementsList(FilterAdvertisementViewModel model, string backUrl)
-        {
-            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
-
-            if (model != null)
-            {
-                var onlyActiveAdvertisements = model.onlyActiveAdvertisements;
-
-                if (onlyActiveAdvertisements)
-                {
-                    advertisements = advertisements.Where(item => item.Response == null).ToList();
-                }
-
-                if (model.advertisementViewType != AdvertisementViewType.All)
-                {
-                    advertisements = advertisements.Where(item => item.Type.ToString() == model.advertisementViewType.ToString()).ToList();
-                }
-            }
-
-            return ShowAdvertisements(advertisements, null, backUrl);
-        }
+            ViewBag.FilterModel = model;
+            return PartialView("_AdvertisementsList", advertisements);
+        }*/
 
         public ActionResult LastAdvertisements()
         {
