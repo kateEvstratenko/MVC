@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using guestNetwork.Models;
+using System.Linq;
 
 namespace guestNetwork
 {
-    public abstract class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T : class
+    public abstract class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T: class
     {
         internal IApplicationDbContext Context;
         internal IDbSet<T> DbSet;
@@ -38,7 +39,7 @@ namespace guestNetwork
             return DbSet.Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             return DbSet;
         }

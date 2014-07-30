@@ -9,7 +9,6 @@ using PagedList;
 
 namespace guestNetwork.Controllers
 {
-    [Authorize]
     public class AdvertisementController : Controller
     {
         private readonly IUnitOfWork uow;
@@ -32,6 +31,21 @@ namespace guestNetwork.Controllers
             return PartialView(advertisements.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult LastAdvertisements()
+        {
+            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
+            advertisements.Reverse();
+
+            var advertisementsList = new List<Advertisement>();
+            for (var i = 0; i < 3 && i < advertisements.Count; i++)
+            {
+
+                advertisementsList.Add(advertisements[i]);
+            }
+
+            return PartialView("_LastAdvertisements", advertisementsList.AsQueryable());
+        }
+
         public ActionResult BackTo(string backUrl)
         {
             return Redirect(backUrl);
@@ -39,27 +53,19 @@ namespace guestNetwork.Controllers
 
         public ActionResult ViewAll(string backUrl, bool? onlyActive, AdvertisementViewType? type, int? page)
         {
-           /* if (Request.HttpMethod == "GET")
-            {
-                page = 1;
-            } */
-
             int pageNumber = page ?? 1;
             int pageSize = 10;
 
             var advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
-           // if (filterModel != null)
+            if (onlyActive == true)
             {
-                if (onlyActive == true)
-                {
-                    advertisements = advertisements.Where(item => item.Response == null).ToList();
-                }
+                advertisements = advertisements.Where(item => item.Response == null).ToList();
+            }
 
-                if (type != null && type != AdvertisementViewType.All)
-                {
-                    advertisements = advertisements.Where(item => item.Type.ToString() == type.ToString()).ToList();
-                }
+            if (type != null && type != AdvertisementViewType.All)
+            {
+                advertisements = advertisements.Where(item => item.Type.ToString() == type.ToString()).ToList();
             }
 
             ViewBag.Url = backUrl;
@@ -86,15 +92,11 @@ namespace guestNetwork.Controllers
             return View(advertisement);
         }
 
-        // GET: /Advertisement/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Advertisement/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create( AdvertisementViewModel model)
@@ -155,7 +157,6 @@ namespace guestNetwork.Controllers
             return View(advertisement);
         }
 
-        // GET: /Advertisement/Delete/5
         public ActionResult Delete(int id, string backUrl)
         {
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
@@ -168,7 +169,6 @@ namespace guestNetwork.Controllers
             return View(advertisement);
         }
 
-        // POST: /Advertisement/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -183,20 +183,5 @@ namespace guestNetwork.Controllers
             uow.Save();
             return RedirectToAction("Index");
         }
-
-
-        /*public ActionResult Respond()
-        {
-            
-        }*/
-
-        /*protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }*/
     }
 }

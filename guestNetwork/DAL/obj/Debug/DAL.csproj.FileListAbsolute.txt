@@ -24,3 +24,4 @@ D:\Курсы\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Курсы\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Razor.xml
 D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.dll
 D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.pdb
+D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache

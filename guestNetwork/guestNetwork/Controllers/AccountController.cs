@@ -27,8 +27,7 @@ namespace guestNetwork.Controllers
             UserManager = userManager;
             UserManager.UserValidator = new UserValidator<User, int>(UserManager)
             {
-                RequireUniqueEmail = true,
-                //AllowOnlyAlphanumericUserNames = false
+                RequireUniqueEmail = true
             };
         }
 
@@ -44,10 +43,6 @@ namespace guestNetwork.Controllers
         }
         public ActionResult Details(int id, string backUrl)
         {
-            /*if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
             User user = uow.UserRepository.Get(id);
             if (user == null)
             {
@@ -79,7 +74,6 @@ namespace guestNetwork.Controllers
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -136,11 +130,11 @@ namespace guestNetwork.Controllers
             }
 
             var selectedLanguage = uow.LanguageRepository.GetAll().First();
-            ViewBag.LanguagesList = GetLanguages(new[]
+            ViewBag.LanguagesList = GetLanguages(new List<string>
             { 
                 selectedLanguage.Id.ToString()
             });
-            // If we got this far, something failed, redisplay form
+
             return View(model);
         }
 
@@ -178,18 +172,33 @@ namespace guestNetwork.Controllers
 
             ViewBag.Message = "";
 
+            var selectedLanguage = user.Languages.Select(x => x.Id.ToString());
+            ViewBag.LanguagesList = GetLanguages(new List<string>(selectedLanguage));
+
             return PartialView("_ChangePersonalInformation", model);
         }
 
         [HttpPost]
         public ActionResult ChangePersonalInformation(ChangeUserPersonalInformationViewModel model)
         {
-            ViewBag.Message = "Changes saved success";
             var user = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
-            user.Firstname = model.Firstname;
-            user.Surname = model.Surname;
-            user.Country = model.Country;
-            user.City = model.City;
+
+            if (ModelState.IsValid)
+            {
+                var lan = uow.LanguageRepository.GetAll().Where(x => model.Languages.Contains(x.Id.ToString())).ToList();
+                user.Languages.Clear(); 
+
+                ViewBag.Message = "Changes saved success";
+
+                user.Firstname = model.Firstname;
+                user.Surname = model.Surname;
+                user.Country = model.Country;
+                user.City = model.City;
+                user.Languages = lan;
+            }
+
+            var selectedLanguage = user.Languages.Select(x => x.Id.ToString());
+            ViewBag.LanguagesList = GetLanguages(new List<string>(selectedLanguage));
 
             uow.UserRepository.Update(user);
             uow.Save();

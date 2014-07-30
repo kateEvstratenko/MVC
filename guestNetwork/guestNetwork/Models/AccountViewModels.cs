@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace guestNetwork.Models
 {
@@ -50,6 +51,10 @@ namespace guestNetwork.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Languages")]
+        public IEnumerable<string> Languages { get; set; }
     }
 
     public class LoginViewModel

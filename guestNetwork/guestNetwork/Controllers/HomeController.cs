@@ -17,21 +17,7 @@ namespace guestNetwork.Controllers
         {
             return View();
         }
-        public ActionResult LastAdvertisements()
-        {
-            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
-            advertisements.Reverse();
-
-            var advertisementsList = new List<Advertisement>();
-            for (var i = 0; i < 3 && i < advertisements.Count; i++)
-            {
-
-                advertisementsList.Add(advertisements[i]);
-            }
-
-            return PartialView("_LastAdvertisements", advertisementsList);
-        }
-
+  
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

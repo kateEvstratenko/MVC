@@ -284,7 +284,7 @@
     <Content Include="Views\Response\_Create.cshtml" />
     <Content Include="Views\Response\_AddedResponse.cshtml" />
     <Content Include="Views\Advertisement\_FilterForm.cshtml" />
-    <Content Include="Views\Home\_LastAdvertisements.cshtml" />
+    <Content Include="Views\Advertisement\_LastAdvertisements.cshtml" />
     <Content Include="Views\Advertisement\_AdvertisementsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
