@@ -1,4 +1,3 @@
-D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 D:\Курсы\MVC\guestNetwork\DAL\bin\Debug\DAL.dll.config
 D:\Курсы\MVC\guestNetwork\DAL\bin\Debug\DAL.dll
 D:\Курсы\MVC\guestNetwork\DAL\bin\Debug\DAL.pdb

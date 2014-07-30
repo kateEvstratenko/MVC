@@ -11,47 +11,38 @@
 <div>
     <h4>Advertisement</h4>
 	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-    </dl>
+    <table >
+        <tr>
+            <td >
+                <a href="@Url.Action("Details", "Advertisement", new { id = Model.Id, backUrl = ViewBag.Url })">
+                    <img src="@Url.Content(Model.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                </a>
+            </td>
+            <td class="advertisementsInformation">
+                <div class=" Title boldFont advertisementsInformationString">
+                    @Html.DisplayFor(model => model.Title)
+                </div>
+                <div class="textWrap advertisementsInformationString">
+                    @Html.DisplayFor(model => model.Content)
+                </div>
+                <div class="advertisementsInformationstring">
+                    <span class="boldFont ">User: </span>
+                    @Html.ActionLink(Model.User.UserName, "Details", "Account", new { id = Model.User.Id, backUrl = ViewBag.Url }, null)
+                </div>
+                <div class="advertisementsInformationString">
+                    <span class="boldFont">Type: </span>
+                    @Html.DisplayFor(model => model.Type)
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
     @if (Request.IsAuthenticated )
     {
         if (Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
         {
-            @Html.ActionLink("Edit", "Edit", new {id = Model.Id, backUrl = ViewBag.BackUrl}) @(" | ")
+           // @Html.ActionLink("Edit", "Edit", new {id = Model.Id, backUrl = ViewBag.BackUrl}) @(" | ")
         }
         else
         {
@@ -63,6 +54,4 @@
             }
         }
     }
-
-    @Html.ActionLink("Back to List", "BackTo", new { backUrl = ViewBag.BackUrl })
 </p>

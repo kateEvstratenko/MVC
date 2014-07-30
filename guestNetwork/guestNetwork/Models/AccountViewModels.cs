@@ -81,6 +81,7 @@ namespace guestNetwork.Models
         [Required]
         public string City { get; set; }
 
+        [Required]
         [Display(Name = "Languages")]
         public IEnumerable<string> Languages { get; set; }
 

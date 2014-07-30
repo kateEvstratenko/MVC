@@ -62,8 +62,7 @@ namespace guestNetwork.Controllers
                 }
             }
 
-            var url = Request.Url.ToString();
-            ViewBag.Url = url;
+            ViewBag.Url = backUrl;
             ViewBag.onlyActive = onlyActive;
             ViewBag.type = type;
 
@@ -77,26 +76,13 @@ namespace guestNetwork.Controllers
             return PartialView("_FilterForm", model);
         }
 
-        /*public ActionResult ViewAdvertisements(FilterAdvertisementViewModel model, IPagedList<Advertisement> advertisements)
-        {
-            ViewBag.FilterModel = model;
-            return PartialView("_AdvertisementsList", advertisements);
-        }*/
-
-        // GET: /Advertisement/Details/5
         public ActionResult Details(int id, string backUrl)
         {
-            /*if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
             if (advertisement == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.BackUrl = backUrl;
             return View(advertisement);
         }
 
@@ -142,13 +128,8 @@ namespace guestNetwork.Controllers
             return View(model);
         }
 
-        // GET: /Advertisement/Edit/5
         public ActionResult Edit(int id, string backUrl)
         {
-            /*if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
             if (advertisement == null)
             {
@@ -159,9 +140,6 @@ namespace guestNetwork.Controllers
             return View(advertisement);
         }
 
-        // POST: /Advertisement/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Advertisement advertisement, string backUrl)

@@ -7,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (@Html.BeginForm("ViewAll", "Advertisement", new { backUrl = ViewBag.Url, FormMethod.Get}))
+@using (@Html.BeginForm("ViewAll", "Advertisement", new { backUrl = ViewBag.Url, FormMethod.Get }))
 {
     <div class="filterForm">
         <div class="filterFormItem">
@@ -20,7 +20,7 @@
         <div class="filterFormItem">
             @Html.Label("dhgdgh", new { @class = "filterFormLabel" })
             <div class="filterFormControl">
-                @if  (ViewBag.onlyActive as string == "true")
+                @if (ViewBag.onlyActive as string == "true")
                 {
                     @Html.CheckBox("onlyActive", true)
                 }
@@ -39,47 +39,34 @@
     </div>
 }
 
+
 <div id="filterForm">
-    <table class="table advertisement">
-        <tr>
-            <th>
-
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Content
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                UserName
-            </th>
-            <th></th>
-        </tr>
-
+    <table class="advertisementsTable">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
+            <tr class="advertisementsTableRow">
+                <td class="advertisementsImage">
+                    <a href="@Url.Action("Details", "Advertisement", new { id = item.Id, backUrl = ViewBag.Url })">
+                        <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                    </a>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                <td class="advertisementsInformation">
+                    <div class=" Title boldFont advertisementsInformationString">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </div>
+                    <div class="advertisementsInformationString">
+                        <span class="boldFont">User: </span>
+                        @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
+                    </div>
+                    <div class="advertisementsInformationString">
+                        <span class="boldFont">Type: </span>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </div>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id, backUrl = ViewBag.Url })
+            </tr>
+            <tr class="advertisementsTableEmptyRow">
+                <td colspan="2">
+                    <hr/>
                 </td>
             </tr>
         }

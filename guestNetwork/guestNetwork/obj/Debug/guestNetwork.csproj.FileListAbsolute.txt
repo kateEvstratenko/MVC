@@ -376,3 +376,6 @@ D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Ninject.Web.Mvc.xml
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.Identityabstractclass.resources
 D:\Курсы\MVC\guestNetwork\guestNetwork\bin\DAL.dll
 D:\Курсы\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.Identityabstractclass.resources
