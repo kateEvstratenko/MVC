@@ -33,17 +33,9 @@ namespace guestNetwork.Controllers
 
         public ActionResult LastAdvertisements()
         {
-            var advertisements = uow.AdvertisementRepository.GetAll().ToList();
-            advertisements.Reverse();
+            var advertisements = uow.AdvertisementRepository.GetAll().OrderByDescending(x => x.Id).ToList().Take(3);
 
-            var advertisementsList = new List<Advertisement>();
-            for (var i = 0; i < 3 && i < advertisements.Count; i++)
-            {
-
-                advertisementsList.Add(advertisements[i]);
-            }
-
-            return PartialView("_LastAdvertisements", advertisementsList.AsQueryable());
+            return PartialView("_LastAdvertisements", advertisements.AsQueryable());
         }
 
         public ActionResult BackTo(string backUrl)
