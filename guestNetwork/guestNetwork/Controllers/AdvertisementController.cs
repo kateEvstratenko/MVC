@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using guestNetwork.Models;
-using guestNetwork.DAL;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using PagedList;

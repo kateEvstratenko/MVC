@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using guestNetwork.Models;
-using guestNetwork.DAL;
+
 
 namespace guestNetwork.Controllers
 {
@@ -87,7 +87,11 @@ namespace guestNetwork.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.LanguagesList = GetLanguages(new []{"1"});
+            var selectedLanguage = uow.LanguageRepository.GetAll().First();
+            ViewBag.LanguagesList = GetLanguages(new[]
+            { 
+                selectedLanguage.Id.ToString()
+            });
             return View();
         }
 
@@ -95,7 +99,7 @@ namespace guestNetwork.Controllers
         private MultiSelectList GetLanguages(string[] selectedValues)
         {
             var languages = uow.LanguageRepository.GetAll();
-            return new MultiSelectList(languages, "Id", "Name", selectedValues);
+            return new System.Web.Mvc.MultiSelectList(languages, "Id", "Name", new[]{"11"});
         }
         //
         // POST: /Account/Register
@@ -106,7 +110,7 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lan = uow.LanguageRepository.GetAll().Where(x => model.SelectedLanguages.Contains(x.Id.ToString())).ToList();
+                var lan = uow.LanguageRepository.GetAll().Where(x => model.LanguagesList.Select(y => y.Value).Contains(x.Id.ToString())).ToList();
 
                 var user = new User()
                 {

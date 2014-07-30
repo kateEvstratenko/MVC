@@ -1,4 +1,3 @@
-using guestNetwork.DAL;
 using guestNetwork.Models;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(guestNetwork.App_Start.NinjectWebCommon), "Start")]

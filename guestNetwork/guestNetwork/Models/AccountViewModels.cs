@@ -82,7 +82,8 @@ namespace guestNetwork.Models
         public string City { get; set; }
 
         [Display(Name = "Languages")]
-        public string[] SelectedLanguages { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> LanguagesList { get; set; }
+
 
         [Required]
         [RegularExpression(@"[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Incorrect email")]

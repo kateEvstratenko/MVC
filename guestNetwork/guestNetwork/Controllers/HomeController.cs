@@ -1,5 +1,4 @@
-﻿using guestNetwork.DAL;
-using guestNetwork.Models;
+﻿using guestNetwork.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
