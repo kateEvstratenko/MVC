@@ -82,7 +82,7 @@ namespace guestNetwork.Models
         public string City { get; set; }
 
         [Display(Name = "Languages")]
-        public IEnumerable<System.Web.Mvc.SelectListItem> LanguagesList { get; set; }
+        public IEnumerable<string> Languages { get; set; }
 
 
         [Required]

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using guestNetwork.Models;
+using System.Collections.Generic;
 
 
 namespace guestNetwork.Controllers
@@ -88,18 +89,17 @@ namespace guestNetwork.Controllers
         public ActionResult Register()
         {
             var selectedLanguage = uow.LanguageRepository.GetAll().First();
-            ViewBag.LanguagesList = GetLanguages(new[]
+            ViewBag.LanguagesList = GetLanguages(new List<string>()
             { 
                 selectedLanguage.Id.ToString()
             });
             return View();
         }
 
-
-        private MultiSelectList GetLanguages(string[] selectedValues)
+        private MultiSelectList GetLanguages(IEnumerable<string> selectedValues)
         {
             var languages = uow.LanguageRepository.GetAll();
-            return new System.Web.Mvc.MultiSelectList(languages, "Id", "Name", new[]{"11"});
+            return new System.Web.Mvc.MultiSelectList(languages, "Id", "Name", selectedValues);
         }
         //
         // POST: /Account/Register
@@ -110,7 +110,7 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lan = uow.LanguageRepository.GetAll().Where(x => model.LanguagesList.Select(y => y.Value).Contains(x.Id.ToString())).ToList();
+                var lan = uow.LanguageRepository.GetAll().Where(x => model.Languages.Contains(x.Id.ToString())).ToList();
 
                 var user = new User()
                 {
@@ -135,6 +135,11 @@ namespace guestNetwork.Controllers
                 }
             }
 
+            var selectedLanguage = uow.LanguageRepository.GetAll().First();
+            ViewBag.LanguagesList = GetLanguages(new[]
+            { 
+                selectedLanguage.Id.ToString()
+            });
             // If we got this far, something failed, redisplay form
             return View(model);
         }
