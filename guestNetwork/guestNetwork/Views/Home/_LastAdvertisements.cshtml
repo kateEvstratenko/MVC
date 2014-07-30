@@ -1,48 +1,35 @@
 ﻿@model IEnumerable<guestNetwork.Models.Advertisement>
 
-<div id="filterForm">
-    <table class="table advertisement">
-        <tr>
-            <th>
 
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Content
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                UserName
-            </th>
-            <th></th>
-        </tr>
-
+    <table class="advertisementsTable">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
+            <tr class="advertisementsTableEmptyRow">
+                <td colspan="2">
+                    <hr />
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+            </tr>
+            
+            <tr class="advertisementsTableRow">
+                <td class="advertisementsImage">
+                    <a href="@Url.Action("Details", "Advertisement", new {id = item.Id, backUrl = ViewBag.Url})">
+                        <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
+                    </a>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id,backUrl = Request.Url.ToString() }, null)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", "Advertisement", new { id = item.Id, backUrl = Request.Url.ToString()}, null)
+                <td class="advertisementsInformation">
+                    <div class=" Title boldFont advertisementsInformationString">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </div>
+                    <div class="advertisementsInformationString">
+                        <span class="boldFont">User: </span>
+                        @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
+                    </div>
+                    <div class="advertisementsInformationString">
+                        <span class="boldFont">Type: </span>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </div>
                 </td>
             </tr>
         }
     </table>
-</div>
+
