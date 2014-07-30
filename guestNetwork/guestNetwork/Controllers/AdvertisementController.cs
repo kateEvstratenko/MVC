@@ -74,6 +74,7 @@ namespace guestNetwork.Controllers
             return PartialView("_FilterForm", model);
         }
 
+        [Authorize]
         public ActionResult Details(int id, string backUrl)
         {
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
@@ -84,6 +85,7 @@ namespace guestNetwork.Controllers
             return View(advertisement);
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -91,6 +93,7 @@ namespace guestNetwork.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create( AdvertisementViewModel model)
         {
             if (ModelState.IsValid)
@@ -122,6 +125,7 @@ namespace guestNetwork.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult Edit(int id, string backUrl)
         {
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
@@ -136,6 +140,7 @@ namespace guestNetwork.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(Advertisement advertisement, string backUrl)
         {
             if (ModelState.IsValid)
@@ -149,6 +154,7 @@ namespace guestNetwork.Controllers
             return View(advertisement);
         }
 
+        [Authorize]
         public ActionResult Delete(int id, string backUrl)
         {
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);
@@ -163,16 +169,26 @@ namespace guestNetwork.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             var advertisement = uow.AdvertisementRepository.Get(id);
             var response = advertisement.Response;
 
             if (response != null)
+            {
                 uow.ResponseRepository.Delete(response.Id);
+            }
+
+            var imagePath = Server.MapPath(advertisement.MainImagePath);
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
 
             uow.AdvertisementRepository.Delete(id);
             uow.Save();
+
             return RedirectToAction("Index");
         }
     }
