@@ -200,19 +200,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407272234530_first.cs" />
-    <Compile Include="Migrations\201407272234530_first.Designer.cs">
-      <DependentUpon>201407272234530_first.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407292157169_Identity abstract class.cs" />
-    <Compile Include="Migrations\201407292157169_Identity abstract class.Designer.cs">
-      <DependentUpon>201407292157169_Identity abstract class.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdvertisementViewModels.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\AdvertisementViewModel.cs" />
+    <Compile Include="Models\ChangeUserPersonalInformationViewModel.cs" />
+    <Compile Include="Models\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\GuestNetworkConstants.cs" />
     <Compile Include="Models\FilterViewModels.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\ManageUserViewModel.cs" />
     <Compile Include="Models\ResponseViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringResources.Designer.cs">
@@ -303,12 +298,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407272234530_first.resx">
-      <DependentUpon>201407272234530_first.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407292157169_Identity abstract class.resx">
-      <DependentUpon>201407292157169_Identity abstract class.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="StringResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResources.Designer.cs</LastGenOutput>

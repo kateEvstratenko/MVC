@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using System.Web.Mvc;
 using guestNetwork.Models;
 using Microsoft.AspNet.Identity;
@@ -97,7 +96,7 @@ namespace guestNetwork.Controllers
         {
             if (ModelState.IsValid)
             {
-                var advertisement = new Advertisement()
+                var advertisement = new Advertisement
                 {
                     Title = model.Title,
                     Content = model.Content,
@@ -106,23 +105,25 @@ namespace guestNetwork.Controllers
                 };
 
                 var file = Request.Files["file"];
+                var advPath = "";
 
-                if (file != null)
+                if (file != null && file.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-
-                    var advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
-
-                    var path = Path.Combine(Server.MapPath(StringResources.ImagesPath), advPath);
-                    file.SaveAs(path);
-
-                    advertisement.MainImagePath = StringResources.ImagesPath + advPath;
-
-                    uow.AdvertisementRepository.Insert(advertisement);
-                    uow.Save();
-
-                    return RedirectToAction("Index");
+                     advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                     var path = Path.Combine(Server.MapPath(StringResources.ImagesPath), advPath);
+                     file.SaveAs(path);
                 }
+                else
+                {
+                    advPath = StringResources.NoImageFile;
+                }
+
+                advertisement.MainImagePath = StringResources.ImagesPath + advPath;
+
+                uow.AdvertisementRepository.Insert(advertisement);
+                uow.Save();
+                
+                return RedirectToAction("Index");
             }
 
             return View(model);
@@ -180,13 +181,15 @@ namespace guestNetwork.Controllers
 
             if (response != null)
             {
-                uow.ResponseRepository.Delete(response.Id);
+                uow.ResponseRepository.Delete(response.AdvertisementId);
             }
 
-            var imagePath = Server.MapPath(advertisement.MainImagePath);
-            if (System.IO.File.Exists(imagePath))
+            var fullImagePath = Server.MapPath(advertisement.MainImagePath);
+
+            if (System.IO.File.Exists(fullImagePath) && 
+                advertisement.MainImagePath != StringResources.ImagesPath + StringResources.NoImageFile)
             {
-                System.IO.File.Delete(imagePath);
+                System.IO.File.Delete(fullImagePath);
             }
 
             uow.AdvertisementRepository.Delete(id);

@@ -12,14 +12,14 @@
     <div class="filterForm">
         <div class="filterFormItem">
             @Html.Label("Type", new { @class = "filterFormLabel" })
-            <div class="filterFormControl">
+            <div class="filterform-control">
                 @Html.DropDownList("type", new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType)), ViewBag.type), new { @class = "form-control" })
             </div>
         </div>
 
         <div class="filterFormItem">
             @Html.Label("Show only active Advertisements:", new { @class = "filterFormLabel" })
-            <div class="filterFormControl">
+            <div class="filterform-control">
                 @if (ViewBag.onlyActive as string == "true")
                 {
                     @Html.CheckBox("onlyActive", true)
@@ -32,7 +32,7 @@
         </div>
 
         <div class="filterFormItem">
-            <div class="filterFormControl">
+            <div class="filterform-control">
                 <input type="submit" class="btn btn-default" value="Filter" />
             </div>
         </div>

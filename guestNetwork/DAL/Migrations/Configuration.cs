@@ -1,6 +1,6 @@
 ﻿using guestNetwork.Models;
 
-namespace guestNetwork.Migrations
+namespace DAL.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -11,7 +11,7 @@ namespace guestNetwork.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(guestNetwork.Models.ApplicationDbContext context)

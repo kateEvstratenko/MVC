@@ -1,4 +1,5 @@
-﻿@model guestNetwork.Models.ResponseCreateViewModel
+﻿@using guestNetwork.Models
+@model guestNetwork.Models.Response
 
 @{
     Layout = null;
@@ -23,14 +24,19 @@
                     <hr />
                     @Html.ValidationSummary(true)
 
-                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.AdvertisementId)
                     @Html.HiddenFor(model => model.UserId)
-                    @Html.HiddenFor(model => model.UserName)
-
+                    @Html.HiddenFor(model => model.User.UserName)
+                    
+                    @Html.LabelFor(model => model.Message, new { @class = "control-label col-md-2" })
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Message, new { @class = "control-label col-md-2" })
+                       
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Message)
+                            @Html.TextAreaFor(model => model.Message, new
+                               {
+                                   @class = "form-control advertisementsContent",
+                                   @maxlength = GuestNetworkConstants.TextAreaLength
+                               })
                             @Html.ValidationMessageFor(model => model.Message)
                         </div>
                     </div>

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace guestNetwork.Models
 {
@@ -12,7 +9,7 @@ namespace guestNetwork.Models
         public int UserId { get; set; }
         [Required]
         public string Title { get; set; }
-        public string mainImagePath { get; set; }
+        public string MainImagePath { get; set; }
 
         [Required]
         [MaxLength(GuestNetworkConstants.TextAreaLength, ErrorMessage = "{0} must be maximum of {1}")]

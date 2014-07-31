@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using guestNetwork.Models;
 using System.Linq;
@@ -36,7 +35,12 @@ namespace guestNetwork
 
         public T Get(int id)
         {
-            return DbSet.Find(id);
+            var result = DbSet.Find(id);
+            if (result != null)
+            {
+                return result;
+            }
+            throw new NullReferenceException();
         }
 
         public IQueryable<T> GetAll()

@@ -1,4 +1,4 @@
-namespace guestNetwork.Migrations
+namespace DAL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -14,7 +14,7 @@ namespace guestNetwork.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.Int(nullable: false),
                         Title = c.String(),
-                        mainImagePath = c.String(),
+                        MainImagePath = c.String(),
                         Content = c.String(),
                         Type = c.Int(nullable: false),
                     })

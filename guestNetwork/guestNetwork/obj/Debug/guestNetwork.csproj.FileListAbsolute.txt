@@ -220,7 +220,6 @@ D:\Курсы\MVC\guestNetwork\guestNetwork\bin\Microsoft.Owin.Security.Microsof
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csprojResolveAssemblyReference.cache
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.dll
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.pdb
-D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.first.resources
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csproj.GenerateResource.Cache
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.csprojResolveAssemblyReference.cache
 D:\Курсы\MVC\guestNetwork\guestNetwork\bin\PagedList.dll
@@ -378,5 +377,4 @@ D:\Курсы\MVC\guestNetwork\guestNetwork\bin\DAL.dll
 D:\Курсы\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.dll
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
-D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.Identityabstractclass.resources
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.StringResources.resources

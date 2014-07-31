@@ -52,3 +52,5 @@ D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Razor.xml
 D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.dll
 D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.pdb
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.Migrations.first.resources
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.csproj.GenerateResource.Cache

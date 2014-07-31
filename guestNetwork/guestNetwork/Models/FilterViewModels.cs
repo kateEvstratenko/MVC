@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace guestNetwork.Models
 {
@@ -15,8 +12,8 @@ namespace guestNetwork.Models
     public class FilterAdvertisementViewModel
     {
         [Display(Name = "Type: ")]
-        public AdvertisementViewType advertisementViewType { get; set; }
+        public AdvertisementViewType AdvertisementViewType { get; set; }
         [Display(Name = "Show only active Advertisements: ")]
-        public bool onlyActiveAdvertisements { get; set; }
+        public bool OnlyActiveAdvertisements { get; set; }
     }
 }

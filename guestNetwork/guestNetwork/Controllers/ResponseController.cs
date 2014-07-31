@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using guestNetwork.Models;
 using Microsoft.AspNet.Identity;
@@ -14,7 +9,7 @@ namespace guestNetwork.Controllers
     [Authorize]
     public class ResponseController : Controller
     {
-        private IUnitOfWork uow;
+        private readonly IUnitOfWork uow;
 
         public ResponseController(IUnitOfWork uowInstance)
         {
@@ -29,19 +24,19 @@ namespace guestNetwork.Controllers
         }
 
         // GET: /Response/Details/5
-       /* public ActionResult Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Response response = db.Responses.Find(id);
+            Response response = uow.ResponseRepository.Get(id.Value);
             if (response == null)
             {
                 return HttpNotFound();
             }
-            return View(response);
-        }*/
+            return PartialView("_AddedResponse", response);
+        }
 
         // GET: /Response/Create
         public ActionResult Create(int id)
@@ -49,11 +44,11 @@ namespace guestNetwork.Controllers
             //ViewBag.Id = new SelectList(uow.AdvertisementRepository.Get(id), "Id", "Title");
             //ViewBag.UserId = new SelectList(db.Users, "Id", "Firstname");
 
-            ResponseCreateViewModel model = new ResponseCreateViewModel()
+            var model = new Response
             {
-                Id = id,
+                AdvertisementId = id,
                 UserId = Int32.Parse(User.Identity.GetUserId()),
-                UserName = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).UserName,
+                //UserName = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).UserName,
                 //UserName = User.Identity.GetUserName()
             };
             return PartialView("_Create", model);
@@ -64,13 +59,13 @@ namespace guestNetwork.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Message,UserId, UserName")] ResponseCreateViewModel responseModel)
+        public ActionResult Create(Response responseModel)
         {
             if (ModelState.IsValid)
             {
-                var response = new Response()
+                var response = new Response
                 {
-                    Id = responseModel.Id,
+                    AdvertisementId = responseModel.AdvertisementId,
                     UserId = responseModel.UserId,
                     Message = responseModel.Message,
                 };

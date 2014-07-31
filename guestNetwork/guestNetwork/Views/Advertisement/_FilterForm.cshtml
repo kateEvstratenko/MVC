@@ -4,21 +4,21 @@
 {
     <div class="filterForm">
         <div class="filterFormItem">
-            @Html.LabelFor(model => model.advertisementViewType, new { @class = "filterFormLabel" })
-            <div class="filterFormControl">
-                @Html.DropDownListFor(model => model.advertisementViewType, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType))), new { @class = "form-control" })
+            @Html.LabelFor(model => model.AdvertisementViewType, new { @class = "filterFormLabel" })
+            <div class="filterform-control">
+                @Html.DropDownListFor(model => model.AdvertisementViewType, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType))), new { @class = "form-control" })
             </div>
         </div>
 
         <div class="filterFormItem">
-            @Html.LabelFor(model => model.onlyActiveAdvertisements, new { @class = "filterFormLabel" })
-            <div class="filterFormControl">
-                @Html.CheckBoxFor(model => model.onlyActiveAdvertisements)
+            @Html.LabelFor(model => model.OnlyActiveAdvertisements, new { @class = "filterFormLabel" })
+            <div class="filterform-control">
+                @Html.CheckBoxFor(model => model.OnlyActiveAdvertisements)
             </div>
         </div>
 
         <div class="filterFormItem">
-            <div class="filterFormControl">
+            <div class="filterform-control">
                 <input type="submit" class="btn btn-default" value="Filter" />
             </div>
         </div>

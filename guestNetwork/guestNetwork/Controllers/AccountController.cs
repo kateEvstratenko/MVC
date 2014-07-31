@@ -83,7 +83,7 @@ namespace guestNetwork.Controllers
         public ActionResult Register()
         {
             var selectedLanguage = uow.LanguageRepository.GetAll().First();
-            ViewBag.LanguagesList = GetLanguages(new List<string>()
+            ViewBag.LanguagesList = GetLanguages(new List<string>
             { 
                 selectedLanguage.Id.ToString()
             });
@@ -217,7 +217,7 @@ namespace guestNetwork.Controllers
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
 
-            var currentUser = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
+            uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
 
             return View();
         }
@@ -358,7 +358,7 @@ namespace guestNetwork.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new User() { UserName = model.UserName };
+                var user = new User { UserName = model.UserName };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -399,7 +399,7 @@ namespace guestNetwork.Controllers
         {
             var linkedAccounts = UserManager.GetLogins(Int32.Parse(User.Identity.GetUserId()));
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
-            return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
+            return PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 
         protected override void Dispose(bool disposing)
@@ -428,7 +428,7 @@ namespace guestNetwork.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
         }
 
         private void AddErrors(IdentityResult result)
@@ -489,13 +489,13 @@ namespace guestNetwork.Controllers
                 UserId = userId;
             }
 
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
+            private string LoginProvider { get; set; }
+            private string RedirectUri { get; set; }
+            private string UserId { get; set; }
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;

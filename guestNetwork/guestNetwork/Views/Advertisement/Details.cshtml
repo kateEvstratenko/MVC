@@ -50,6 +50,10 @@
                     @Ajax.ActionLink("Response to advertisement", "Create", "Response", new {id = Model.Id}, new AjaxOptions {UpdateTargetId = "responseForm"})
                 </div>
             }
+            else
+            {
+               @Html.Action("Details", "Response", Model.Id)
+            }
         }
     }
 </p>

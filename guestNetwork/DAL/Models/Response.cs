@@ -7,10 +7,10 @@ using System.Web;
 
 namespace guestNetwork.Models
 {
-    public class Response : Identity
+    public class Response
     {
-        [Key, ForeignKey("Advertisement"), DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Key, ForeignKey("Advertisement")]
+        public int AdvertisementId { get; set; }
         public string Message { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }

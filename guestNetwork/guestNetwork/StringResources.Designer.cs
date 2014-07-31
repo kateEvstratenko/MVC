@@ -68,5 +68,14 @@ namespace guestNetwork {
                 return ResourceManager.GetString("ImagesPath", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to noImage.png.
+        /// </summary>
+        internal static string NoImageFile {
+            get {
+                return ResourceManager.GetString("NoImageFile", resourceCulture);
+            }
+        }
     }
 }

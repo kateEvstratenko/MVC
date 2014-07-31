@@ -47,7 +47,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .banner {
-    background-image: url(../Content/startImage.jpg);
+    background-image: url(../Content/Images/startImage.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     height: 560px;
@@ -63,8 +63,26 @@ input[type="checkbox"].input-validation-error {
     width: 300px;
 }
 
-textarea .form-control .advertisementsContent{
-    height: 300px;
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+textarea.advertisementsContent{
+    height: 200px;
 }
 
 .pagedList{
@@ -86,7 +104,7 @@ textarea .form-control .advertisementsContent{
     font-weight: bold;
 }
 
-.filterFormControl{
+.filterform-control{
     display: inline-block;
 }
 

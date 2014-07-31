@@ -120,4 +120,7 @@
   <data name="ImagesPath" xml:space="preserve">
     <value>~/Content/Images/</value>
   </data>
+  <data name="NoImageFile" xml:space="preserve">
+    <value>noImage.png</value>
+  </data>
 </root>
