@@ -25,3 +25,30 @@ D:\Курсы\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Razor.xml
 D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.dll
 D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.pdb
 D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\DAL.dll.config
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\DAL.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\DAL.pdb
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\EntityFramework.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.Helpers.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.Mvc.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.Razor.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\EntityFramework.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.Helpers.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.Mvc.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.Razor.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.dll
+D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.pdb

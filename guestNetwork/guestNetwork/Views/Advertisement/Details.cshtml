@@ -14,9 +14,7 @@
     <table >
         <tr>
             <td >
-                <a href="@Url.Action("Details", "Advertisement", new { id = Model.Id, backUrl = ViewBag.Url })">
-                    <img src="@Url.Content(Model.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
-                </a>
+                <img src="@Url.Content(Model.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
             </td>
             <td class="advertisementsInformation">
                 <div class=" Title boldFont advertisementsInformationString">

@@ -61,6 +61,10 @@
                             User: @Html.ActionLink(item.Response.User.UserName, "Details", "Account", new {id = item.Response.User.Id, backUrl = Request.Url.ToString()}, null)
                         </p>
                     }
+                    else
+                    {
+                        <p>-</p>
+                    }
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new {id = item.Id, backUrl = Request.Url.ToString()}) |

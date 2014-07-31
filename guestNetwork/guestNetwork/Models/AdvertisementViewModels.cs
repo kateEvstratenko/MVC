@@ -15,7 +15,7 @@ namespace guestNetwork.Models
         public string mainImagePath { get; set; }
 
         [Required]
-        [MaxLength(256, ErrorMessage = "{0} must be maximum of {1}")]
+        [MaxLength(GuestNetworkConstants.TextAreaLength, ErrorMessage = "{0} must be maximum of {1}")]
         public string Content { get; set; }
         [Required]
         public virtual Type Type { get; set; }

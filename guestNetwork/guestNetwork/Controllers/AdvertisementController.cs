@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Web.Mvc;
 using guestNetwork.Models;
 using Microsoft.AspNet.Identity;
@@ -22,18 +23,17 @@ namespace guestNetwork.Controllers
         [Authorize]
         public ActionResult Index(List<Advertisement> advertisements, int? page)
         {
-            int pageNumber = page ?? 1;
-            var pageSize = 10;
+            int pageNumber = page ?? GuestNetworkConstants.DefaultPageNumber;
 
             if(advertisements == null)
                 advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
 
-            return PartialView(advertisements.ToPagedList(pageNumber, pageSize));
+            return PartialView(advertisements.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
         }
 
         public ActionResult LastAdvertisements()
         {
-            var advertisements = uow.AdvertisementRepository.GetAll().OrderByDescending(x => x.Id).ToList().Take(3);
+            var advertisements = uow.AdvertisementRepository.GetAll().OrderByDescending(x => x.Id).ToList().Take(GuestNetworkConstants.IndexPageAdvertisementsCount);
 
             return PartialView("_LastAdvertisements", advertisements.AsQueryable());
         }
@@ -45,8 +45,7 @@ namespace guestNetwork.Controllers
 
         public ActionResult ViewAll(string backUrl, bool? onlyActive, AdvertisementViewType? type, int? page)
         {
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
+            int pageNumber = page ?? GuestNetworkConstants.DefaultPageNumber;
 
             var advertisements = uow.AdvertisementRepository.GetAll().ToList();
 
@@ -64,7 +63,7 @@ namespace guestNetwork.Controllers
             ViewBag.onlyActive = onlyActive;
             ViewBag.type = type;
 
-            return View("ViewAll", advertisements.ToPagedList(pageNumber, pageSize));
+            return View("ViewAll", advertisements.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
         }
 
         public ActionResult ShowFilterForm(FilterAdvertisementViewModel model, string backUrl)
@@ -107,19 +106,23 @@ namespace guestNetwork.Controllers
                 };
 
                 var file = Request.Files["file"];
-                var fileName = Path.GetFileName(file.FileName);
 
-                var advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                if (file != null)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
 
-                var path = Path.Combine(Server.MapPath("~/Content/Images"), advPath);
-                file.SaveAs(path);
+                    var advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
 
-                advertisement.MainImagePath = "~/Content/Images/" + advPath;
-                
-                uow.AdvertisementRepository.Insert(advertisement);
-                uow.Save();
+                    var path = Path.Combine(Server.MapPath(StringResources.ImagesPath), advPath);
+                    file.SaveAs(path);
 
-                return RedirectToAction("Index");
+                    advertisement.MainImagePath = StringResources.ImagesPath + advPath;
+
+                    uow.AdvertisementRepository.Insert(advertisement);
+                    uow.Save();
+
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(model);

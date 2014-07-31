@@ -379,3 +379,4 @@ D:\Курсы\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.dll
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.Migrations.Identityabstractclass.resources
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.StringResources.resources
