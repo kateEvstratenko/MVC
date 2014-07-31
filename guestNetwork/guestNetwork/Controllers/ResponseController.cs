@@ -6,7 +6,6 @@ using Microsoft.AspNet.Identity;
 
 namespace guestNetwork.Controllers
 {
-    [Authorize]
     public class ResponseController : Controller
     {
         private readonly IUnitOfWork uow;
@@ -15,7 +14,8 @@ namespace guestNetwork.Controllers
         {
             uow = uowInstance;
         }
-        // GET: /Response/
+
+        [Authorize]
         public ActionResult Index()
         {
             return View(uow.ResponseRepository.GetAll());
@@ -35,10 +35,10 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_AddedResponse", response);
+            return PartialView("_Details", response);
         }
 
-        // GET: /Response/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             //ViewBag.Id = new SelectList(uow.AdvertisementRepository.Get(id), "Id", "Title");
@@ -54,9 +54,7 @@ namespace guestNetwork.Controllers
             return PartialView("_Create", model);
         }
 
-        // POST: /Response/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Response responseModel)
@@ -72,7 +70,7 @@ namespace guestNetwork.Controllers
 
                 uow.ResponseRepository.Insert(response);
                 uow.Save();
-                return PartialView("_AddedResponse", responseModel);
+                return PartialView("_Details", responseModel);
             }
 
             //ViewBag.Id = new SelectList(db.Advertisements, "Id", "Title", response.Id);

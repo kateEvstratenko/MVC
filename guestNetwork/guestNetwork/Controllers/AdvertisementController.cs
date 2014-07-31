@@ -72,7 +72,6 @@ namespace guestNetwork.Controllers
             return PartialView("_FilterForm", model);
         }
 
-        [Authorize]
         public ActionResult Details(int id, string backUrl)
         {
             Advertisement advertisement = uow.AdvertisementRepository.Get(id);

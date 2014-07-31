@@ -1,4 +1,5 @@
-﻿@model guestNetwork.Models.Response
+﻿@using Microsoft.AspNet.Identity
+@model guestNetwork.Models.Response
 
 @{
     Layout = null;
@@ -33,6 +34,13 @@
                 </dd>
             </dl>
         </div>
+
+        @if (Request.IsAuthenticated && Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
+        {
+            <p>
+                @Html.ActionLink("Edit", "Edit", new {id = Model.AdvertisementId})
+            </p>
+        }
 </body>
 </html>
 

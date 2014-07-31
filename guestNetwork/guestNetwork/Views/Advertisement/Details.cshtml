@@ -10,7 +10,7 @@
 
 <div>
     <h4>Advertisement</h4>
-	<hr />
+    <hr />
     <table >
         <tr>
             <td >
@@ -35,25 +35,19 @@
         </tr>
     </table>
 </div>
+
 <p>
-    @if (Request.IsAuthenticated )
+    @if (Model.Response == null)
     {
-        if (Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
-        {
-           // @Html.ActionLink("Edit", "Edit", new {id = Model.Id, backUrl = ViewBag.BackUrl}) @(" | ")
-        }
-        else
-        {
-            if (Model.Response == null)
-            {
-                <div id="responseForm">
-                    @Ajax.ActionLink("Response to advertisement", "Create", "Response", new {id = Model.Id}, new AjaxOptions {UpdateTargetId = "responseForm"})
-                </div>
-            }
-            else
-            {
-               @Html.Action("Details", "Response", Model.Id)
-            }
-        }
+        if (Request.IsAuthenticated)
+         {
+             <div id="responseForm">
+                 @Ajax.ActionLink("Response to advertisement", "Create", "Response", new {id = Model.Id}, new AjaxOptions {UpdateTargetId = "responseForm"})
+             </div>
+         }
+    }
+    else
+    {
+        @Html.Action("Details", "Response", Model.Id)
     }
 </p>
