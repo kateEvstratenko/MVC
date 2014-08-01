@@ -1,0 +1,8 @@
+﻿@using Microsoft.AspNet.Identity
+@model int
+
+<div id="responseForm">
+    @Ajax.ActionLink("Response to advertisement", "Create", "Response",
+                new { id = Model },
+                new AjaxOptions { UpdateTargetId = "responseForm" })
+</div>

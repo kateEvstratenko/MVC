@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model guestNetwork.Models.Response
+@model guestNetwork.Models.ResponseViewModel
 @{
     Layout = null;
 }
@@ -26,11 +26,11 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.User.UserName)
+                        @Html.DisplayNameFor(model => model.UserName)
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.User.UserName)
+                        @Html.DisplayFor(model => model.UserName)
                     </dd>
                 </dl>
             </div>

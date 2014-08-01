@@ -1,6 +1,6 @@
 ﻿using guestNetwork.Models;
 
-namespace guestNetwork
+namespace DAL
 {
     public interface IUnitOfWork
     {
@@ -9,6 +9,5 @@ namespace guestNetwork
         IGuestNetworkRepository<Advertisement> AdvertisementRepository{ get; }
         IGuestNetworkRepository<Language> LanguageRepository{ get; }
         IGuestNetworkRepository<Response> ResponseRepository{ get; }
-        IApplicationDbContext Context { get; }
     }
 }

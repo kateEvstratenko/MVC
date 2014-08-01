@@ -204,7 +204,6 @@
     <Compile Include="Models\AdvertisementViewModel.cs" />
     <Compile Include="Models\ChangeUserPersonalInformationViewModel.cs" />
     <Compile Include="Models\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="Models\GuestNetworkConstants.cs" />
     <Compile Include="Models\FilterViewModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ManageUserViewModel.cs" />
@@ -281,6 +280,7 @@
     <Content Include="Views\Response\_Details.cshtml" />
     <Content Include="Views\Advertisement\_FilterForm.cshtml" />
     <Content Include="Views\Advertisement\_LastAdvertisements.cshtml" />
+    <Content Include="Views\Response\_ViewForAdvertisement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

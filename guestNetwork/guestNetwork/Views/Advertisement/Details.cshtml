@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model guestNetwork.Models.Advertisement
+@model guestNetwork.Models.AdvertisementViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -25,7 +25,7 @@
                 </div>
                 <div class="advertisementsInformationstring">
                     <span class="boldFont ">User: </span>
-                    @Html.ActionLink(Model.User.UserName, "Details", "Account", new { id = Model.User.Id, backUrl = ViewBag.Url }, null)
+                    @Html.ActionLink(Model.UserName, "Details", "Account", new { id = Model.UserId, backUrl = ViewBag.Url }, null)
                 </div>
                 <div class="advertisementsInformationString">
                     <span class="boldFont">Type: </span>
@@ -36,20 +36,7 @@
     </table>
 </div>
 
-<p>
-    @if (Model.Response == null)
-    {
-        if (Request.IsAuthenticated && Int32.Parse(User.Identity.GetUserId()) != Model.UserId)
-         {
-             <div id="responseForm">
-                 @Ajax.ActionLink("Response to advertisement", "Create", "Response", 
-                    new {id = Model.Id}, 
-                    new AjaxOptions {UpdateTargetId = "responseForm"})
-             </div>
-         }
-    }
-    else
-    {
-        @Html.Action("Details", "Response", Model.Id)
-    }
-</p>
+@if (Request.IsAuthenticated && Int32.Parse(User.Identity.GetUserId()) != Model.UserId)
+{
+    @Html.Action("ViewForAdvertisement", "Response", new { id = Model.Id})
+}

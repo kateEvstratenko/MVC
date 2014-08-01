@@ -31,7 +31,7 @@
                 @Html.TextAreaFor(model => model.Content, new
                 {
                     @class = "form-control advertisementsContent", 
-                    @maxlength = GuestNetworkConstants.TextAreaLength
+                    @maxlength = GuestNetworkConstants.ContentFieldLength
                 })
                 @Html.ValidationMessageFor(model => model.Content)
             </div>

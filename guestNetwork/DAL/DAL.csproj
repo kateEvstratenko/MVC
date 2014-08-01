@@ -82,13 +82,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201407312109381_first.cs" />
-    <Compile Include="Migrations\201407312109381_first.Designer.cs">
-      <DependentUpon>201407312109381_first.cs</DependentUpon>
+    <Compile Include="GuestNetworkConstants.cs" />
+    <Compile Include="Migrations\201408010920411_attributes.cs" />
+    <Compile Include="Migrations\201408010920411_attributes.Designer.cs">
+      <DependentUpon>201408010920411_attributes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Advertisement.cs" />
-    <Compile Include="AdvertisementGuestNetworkRepository.cs" />
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="GuestNetworkRepository.cs" />
     <Compile Include="IApplicationDbContext.cs" />
@@ -96,21 +96,18 @@
     <Compile Include="IGuestNetworkRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\Language.cs" />
-    <Compile Include="LanguageGuestNetworkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Response.cs" />
-    <Compile Include="ResponseGuestNetworkRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="UserGuestNetworkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407312109381_first.resx">
-      <DependentUpon>201407312109381_first.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408010920411_attributes.resx">
+      <DependentUpon>201408010920411_attributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,52 +1,42 @@
 ﻿@using guestNetwork.Models
-@model guestNetwork.Models.Response
+@model guestNetwork.Models.ResponseViewModel
 
 @{
     Layout = null;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-    <body>
         
-        <div id="advertisementsResponse">
-            @using (Ajax.BeginForm("Create", "Response", new AjaxOptions { UpdateTargetId = "advertisementsResponse"}))
-            {
-                @Html.AntiForgeryToken()
+<div id="advertisementsResponse">
+    @using (Ajax.BeginForm("Create", "Response", new AjaxOptions { UpdateTargetId = "advertisementsResponse"}))
+    {
+        @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <h4>Response</h4>
-                    <hr />
-                    @Html.ValidationSummary(true)
+        <div class="form-horizontal">
+            <h4>Response</h4>
+            <hr />
+            @Html.ValidationSummary(true)
 
-                    @Html.HiddenFor(model => model.AdvertisementId)
-                    @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.AdvertisementId)
+            @Html.HiddenFor(model => model.UserId)
                     
-                    @Html.LabelFor(model => model.Message, new { @class = "control-label col-md-2" })
-                    <div class="form-group">
+            @Html.LabelFor(model => model.Message, new { @class = "control-label col-md-2" })
+            <div class="form-group">
                        
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Message, new
-                               {
-                                   @class = "form-control advertisementsContent",
-                                   @maxlength = GuestNetworkConstants.TextAreaLength
-                               })
-                            @Html.ValidationMessageFor(model => model.Message)
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Ok" class="btn btn-default" />
-                        </div>
-                    </div>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Message, new
+                        {
+                            @class = "form-control advertisementsContent",
+                            @maxlength = GuestNetworkConstants.ContentFieldLength
+                        })
+                    @Html.ValidationMessageFor(model => model.Message)
                 </div>
-            }
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Ok" class="btn btn-default" />
+                </div>
+            </div>
         </div>
-</body>
-</html>
+    }
+</div>

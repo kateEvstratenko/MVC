@@ -1,3 +1,4 @@
+using DAL;
 using guestNetwork.Models;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(guestNetwork.App_Start.NinjectWebCommon), "Start")]
@@ -63,15 +64,15 @@ namespace guestNetwork.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<User>>().To<UserGuestNetworkRepository>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<Advertisement>>().To<AdvertisementGuestNetworkRepository>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<Language>>().To<LanguageGuestNetworkRepository>().InRequestScope();
-            kernel.Bind<IGuestNetworkRepository<Response>>().To<ResponseGuestNetworkRepository>().InRequestScope();
-            
-            kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
-            kernel.Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
-            
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            //kernel.Bind<IGuestNetworkRepository<User>>().To<GuestNetworkRepository<User>>().InSingletonScope();
+            //kernel.Bind<IGuestNetworkRepository<Advertisement>>().To<GuestNetworkRepository<Advertisement>>().InSingletonScope();
+            //kernel.Bind<IGuestNetworkRepository<Language>>().To<GuestNetworkRepository<Language>>().InSingletonScope();
+            //kernel.Bind<IGuestNetworkRepository<Response>>().To<GuestNetworkRepository<Response>>().InSingletonScope();
+
+            //kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>().InSingletonScope();
+            //kernel.Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
+
         }
     }
 }

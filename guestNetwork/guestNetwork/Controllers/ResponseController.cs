@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using DAL;
 using guestNetwork.Models;
 using Microsoft.AspNet.Identity;
 
@@ -23,6 +24,24 @@ namespace guestNetwork.Controllers
             return View(uow.ResponseRepository.GetAll());
         }
 
+        public ActionResult ViewForAdvertisement(int id)
+        {
+            var response = uow.ResponseRepository.Get(id);
+
+            if(response == null)
+                return PartialView("_ViewForAdvertisement", id);
+
+            var model = new ResponseViewModel()
+            {
+                AdvertisementId = response.AdvertisementId,
+                UserId = response.UserId,
+                Message = response.Message,
+                UserName = response.User.UserName
+            };
+
+            return PartialView("_Details", model);
+        }
+
         // GET: /Response/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,16 +54,28 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_Details", response);
+
+            var model = new ResponseViewModel
+            {
+                AdvertisementId = response.AdvertisementId,
+                UserId = response.UserId,
+                Message = response.Message,
+               // UserName = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == response.AdvertisementId).User.UserName;
+            };
+
+            return PartialView("_Details", model);
         }
 
         [Authorize]
         public ActionResult Create(int id)
         {
-            var model = new Response
+            var user = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
+            var model = new ResponseViewModel
             {
                 AdvertisementId = id,
-                UserId = Int32.Parse(User.Identity.GetUserId()),
+                UserId = user.Id,
+                UserName = user.UserName,
+                Message = ""
             };
             return PartialView("_Create", model);
         }
@@ -52,7 +83,7 @@ namespace guestNetwork.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Response responseModel)
+        public ActionResult Create(ResponseViewModel responseModel)
         {
             if (ModelState.IsValid)
             {
@@ -80,24 +111,40 @@ namespace guestNetwork.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Response response = uow.ResponseRepository.Get(id.Value);
+
             if (response == null)
             {
                 return HttpNotFound();
             }
-            return PartialView("_Edit", response);
+
+            var model = new ResponseViewModel
+            {
+                AdvertisementId = response.AdvertisementId,
+                UserId = response.UserId,
+                UserName = response.User.UserName,
+                Message = response.Message
+            };
+            return PartialView("_Edit", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Response response)
+        public ActionResult Edit(ResponseViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(response);
+                return View(model);
+
+            var response = new Response
+            {
+                AdvertisementId = model.AdvertisementId,
+                UserId = model.UserId,
+                Message = model.Message,
+            };
 
             uow.ResponseRepository.Update(response);
             uow.Commit();
 
-            var model = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == response.AdvertisementId);
+            //response = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == response.AdvertisementId);
 
             return PartialView("_Details", model);
         }
@@ -123,7 +170,7 @@ namespace guestNetwork.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             uow.ResponseRepository.Delete(id);
-            uow.ResponseRepository.Save();
+            uow.Commit();
             return RedirectToAction("Details", "Advertisement", new { id = id });
         }
     }

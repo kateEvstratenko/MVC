@@ -1,19 +1,15 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq.Expressions;
-using guestNetwork.Models;
+﻿using System.Data.Entity;
 using System.Linq;
+using guestNetwork;
 
-namespace guestNetwork
+namespace DAL
 {
-    public abstract class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T : class
+    public class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T : class
     {
-        internal IApplicationDbContext Context;
         internal IDbSet<T> DbSet;
-        protected GuestNetworkRepository(IApplicationDbContext context, Func<IApplicationDbContext, IDbSet<T>> dbSetSelector)
+        public GuestNetworkRepository(IDbSet<T> dbSet)
         {
-            Context = context;
-            DbSet = dbSetSelector(context);
+            DbSet = dbSet;
         }
 
         public void Insert(T entity)
@@ -31,27 +27,18 @@ namespace guestNetwork
         public void Update(T entity)
         {
             DbSet.Attach(entity);
-            Context.MarkChanged(entity);
         }
 
         public T Get(int id)
         {
             var result = DbSet.Find(id);
-            if (result != null)
-            {
-                return result;
-            }
-            throw new NullReferenceException();
+            
+            return result;
         }
 
         public IQueryable<T> GetAll()
         {
             return DbSet;
-        }
-
-        public void Save()
-        {
-            Context.SaveChanges();
         }
     }
 }

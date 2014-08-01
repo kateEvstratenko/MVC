@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -17,7 +19,7 @@ namespace guestNetwork.Controllers
     {
         private readonly IUnitOfWork uow;
         public AccountController(IUnitOfWork uowInstance)
-            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>((ApplicationDbContext)uowInstance.Context)))
+            : this(new UserManager<User, int>(new UserStore<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>((DbContext)uowInstance)))
         {
             uow = uowInstance;
         }

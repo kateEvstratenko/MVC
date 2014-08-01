@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DAL;
 using guestNetwork.Models;
 using Microsoft.AspNet.Identity;
 using System.IO;
@@ -20,21 +21,56 @@ namespace guestNetwork.Controllers
 
         // GET: /Advertisement/
         [Authorize]
-        public ActionResult Index(List<Advertisement> advertisements, int? page)
+        public ActionResult Index(List<AdvertisementViewModel> model, int? page)
         {
             int pageNumber = page ?? GuestNetworkConstants.DefaultPageNumber;
 
-            if(advertisements == null)
-                advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
+            var advertisements = new List<Advertisement>();
 
-            return PartialView(advertisements.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
+            if (model == null)
+            {
+                advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
+                
+                model = new List<AdvertisementViewModel>();
+
+                foreach (var adv in advertisements)
+                {
+                    model.Add(new AdvertisementViewModel
+                    {
+                        Id = adv.Id,
+                        Title = adv.Title,
+                        MainImagePath = adv.MainImagePath,
+                        Content = adv.Content,
+                        Type = adv.Type,
+                        UserId = adv.UserId,
+                        UserName = adv.User.UserName
+                    });
+                }
+            }
+
+            return View(model.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
         }
 
         public ActionResult LastAdvertisements()
         {
             var advertisements = uow.AdvertisementRepository.GetAll().OrderByDescending(x => x.Id).ToList().Take(GuestNetworkConstants.IndexPageAdvertisementsCount);
 
-            return PartialView("_LastAdvertisements", advertisements);
+            var model = new List<AdvertisementViewModel>();
+            foreach (var adv in advertisements)
+            {
+                model.Add(new AdvertisementViewModel
+                {
+                    Id = adv.Id,
+                    Title = adv.Title,
+                    MainImagePath = adv.MainImagePath,
+                    Content = adv.Content,
+                    Type = adv.Type,
+                    UserId = adv.UserId,
+                    UserName = adv.User.UserName
+                });
+            }
+
+            return PartialView("_LastAdvertisements", model);
         }
 
         public ActionResult BackTo(string backUrl)
@@ -74,12 +110,24 @@ namespace guestNetwork.Controllers
 
         public ActionResult Details(int id, string backUrl)
         {
-            Advertisement advertisement = uow.AdvertisementRepository.Get(id);
+            var advertisement = uow.AdvertisementRepository.Get(id);
             if (advertisement == null)
             {
                 return HttpNotFound();
             }
-            return View(advertisement);
+
+            var model = new AdvertisementViewModel
+            {
+                Id = advertisement.Id,
+                Title = advertisement.Title,
+                MainImagePath = advertisement.MainImagePath,
+                Content = advertisement.Content,
+                Type = advertisement.Type,
+                UserId = advertisement.UserId,
+                UserName = advertisement.User.UserName
+            };
+
+            return View(model);
         }
 
         [Authorize]
@@ -91,9 +139,9 @@ namespace guestNetwork.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create( AdvertisementViewModel model)
+        public ActionResult Create(AdvertisementViewModel model)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return View(model);
 
             var advertisement = new Advertisement
@@ -122,7 +170,7 @@ namespace guestNetwork.Controllers
 
             uow.AdvertisementRepository.Insert(advertisement);
             uow.Commit();
-                
+
             return RedirectToAction("Index");
         }
 
@@ -183,7 +231,7 @@ namespace guestNetwork.Controllers
 
             var fullImagePath = Server.MapPath(advertisement.MainImagePath);
 
-            if (System.IO.File.Exists(fullImagePath) && 
+            if (System.IO.File.Exists(fullImagePath) &&
                 advertisement.MainImagePath != StringResources.ImagesPath + StringResources.NoImageFile)
             {
                 System.IO.File.Delete(fullImagePath);

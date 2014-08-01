@@ -1,4 +1,4 @@
-﻿@model guestNetwork.Models.Response
+﻿@model guestNetwork.Models.ResponseViewModel
 
 @{
     Layout = null;
@@ -22,6 +22,7 @@
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.AdvertisementId)
             @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.UserName)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Message, new { @class = "control-label col-md-2" })

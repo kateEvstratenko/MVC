@@ -1,55 +1,51 @@
-﻿using guestNetwork.Models;
+﻿using System.Data.Entity;
+using guestNetwork;
+using guestNetwork.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace guestNetwork
+namespace DAL
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim>, IUnitOfWork
     {
-        private readonly IApplicationDbContext context;
-        private readonly IGuestNetworkRepository<User> userRepository;
-        private readonly IGuestNetworkRepository<Advertisement> advertisementRepository;
-        private readonly IGuestNetworkRepository<Language> languageRepository;
-        private readonly IGuestNetworkRepository<Response> responseRepository;
-
-        public UnitOfWork(IGuestNetworkRepository<User> userInstance,
-            IGuestNetworkRepository<Advertisement> advertisementInstance,
-            IGuestNetworkRepository<Language> languageInstance,
-            IGuestNetworkRepository<Response> responseInstance,
-            IApplicationDbContext contextInstance)
+        public UnitOfWork()
+            : base("DefaultConnection")
         {
-            context = contextInstance;
-            userRepository = userInstance;
-            advertisementRepository = advertisementInstance;
-            languageRepository = languageInstance;
-            responseRepository = responseInstance;
+
         }
+
+        private GuestNetworkRepository<User> _userRepo;
+        private GuestNetworkRepository<Advertisement> _advertismentRepo;
+        private GuestNetworkRepository<Language> _languageRepo;
+        private GuestNetworkRepository<Response> _responseRepo;
+
+        public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Response> Responses { get; set; }
+
+
         public IGuestNetworkRepository<User> UserRepository
         {
-            get { return userRepository; }
+            get { return _userRepo ?? (_userRepo = new GuestNetworkRepository<User>(Users)); }
         }
 
         public IGuestNetworkRepository<Advertisement> AdvertisementRepository
         {
-            get { return advertisementRepository; }
+            get { return _advertismentRepo ?? (_advertismentRepo = new GuestNetworkRepository<Advertisement>(Advertisements)); }
         }
 
         public IGuestNetworkRepository<Language> LanguageRepository
         {
-            get { return languageRepository; }
+            get { return _languageRepo ?? (_languageRepo = new GuestNetworkRepository<Language>(Languages)); }
         }
 
         public IGuestNetworkRepository<Response> ResponseRepository
         {
-            get { return responseRepository; }
-        }
-
-        public IApplicationDbContext Context
-        {
-            get { return context; }
+            get { return _responseRepo ?? (_responseRepo = new GuestNetworkRepository<Response>(Responses)); }
         }
 
         public void Commit()
         {
-            context.SaveChanges();
+            SaveChanges();
         }
     }
 }

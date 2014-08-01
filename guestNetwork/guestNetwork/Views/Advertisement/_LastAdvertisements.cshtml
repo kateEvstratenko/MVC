@@ -1,4 +1,4 @@
-﻿@model IEnumerable<guestNetwork.Models.Advertisement>
+﻿@model IEnumerable<guestNetwork.Models.AdvertisementViewModel>
 
     <table class="advertisementsTable">
         @foreach (var item in Model)
@@ -21,7 +21,7 @@
                     </div>
                     <div class="advertisementsInformationString">
                         <span class="boldFont">User: </span>
-                        @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
+                        @Html.ActionLink(item.UserName, "Details", "Account", new { id = item.UserId, backUrl = ViewBag.Url }, null)
                     </div>
                     <div class="advertisementsInformationString">
                         <span class="boldFont">Type: </span>

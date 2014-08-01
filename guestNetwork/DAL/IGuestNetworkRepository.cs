@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
-namespace guestNetwork
+namespace DAL
 {
     public interface IGuestNetworkRepository<T> where T : class
     {
@@ -11,6 +9,5 @@ namespace guestNetwork
         void Update(T entity);
         T Get(int id);
         IQueryable<T> GetAll();
-        void Save();
     }
 }
