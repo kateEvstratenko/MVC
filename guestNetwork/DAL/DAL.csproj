@@ -89,9 +89,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Advertisement.cs" />
     <Compile Include="AdvertisementGuestNetworkRepository.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="GuestNetworkRepository.cs" />
-    <Compile Include="Models\IApplicationDbContext.cs" />
+    <Compile Include="IApplicationDbContext.cs" />
     <Compile Include="Models\Identity.cs" />
     <Compile Include="IGuestNetworkRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

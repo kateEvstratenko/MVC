@@ -4,7 +4,7 @@ namespace guestNetwork
 {
     public interface IUnitOfWork
     {
-        void Save();
+        void Commit();
         IGuestNetworkRepository<User> UserRepository { get; }
         IGuestNetworkRepository<Advertisement> AdvertisementRepository{ get; }
         IGuestNetworkRepository<Language> LanguageRepository{ get; }

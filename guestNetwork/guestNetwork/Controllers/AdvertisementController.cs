@@ -34,7 +34,7 @@ namespace guestNetwork.Controllers
         {
             var advertisements = uow.AdvertisementRepository.GetAll().OrderByDescending(x => x.Id).ToList().Take(GuestNetworkConstants.IndexPageAdvertisementsCount);
 
-            return PartialView("_LastAdvertisements", advertisements.AsQueryable());
+            return PartialView("_LastAdvertisements", advertisements);
         }
 
         public ActionResult BackTo(string backUrl)
@@ -93,39 +93,37 @@ namespace guestNetwork.Controllers
         [Authorize]
         public ActionResult Create( AdvertisementViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) 
+                return View(model);
+
+            var advertisement = new Advertisement
             {
-                var advertisement = new Advertisement
-                {
-                    Title = model.Title,
-                    Content = model.Content,
-                    Type = model.Type,
-                    UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id,
-                };
+                Title = model.Title,
+                Content = model.Content,
+                Type = model.Type,
+                UserId = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Id,
+            };
 
-                var file = Request.Files["file"];
-                var advPath = "";
+            var file = Request.Files["file"];
+            var advPath = "";
 
-                if (file != null && file.ContentLength > 0)
-                {
-                     advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
-                     var path = Path.Combine(Server.MapPath(StringResources.ImagesPath), advPath);
-                     file.SaveAs(path);
-                }
-                else
-                {
-                    advPath = StringResources.NoImageFile;
-                }
-
-                advertisement.MainImagePath = StringResources.ImagesPath + advPath;
-
-                uow.AdvertisementRepository.Insert(advertisement);
-                uow.Save();
-                
-                return RedirectToAction("Index");
+            if (file != null && file.ContentLength > 0)
+            {
+                advPath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                var path = Path.Combine(Server.MapPath(StringResources.ImagesPath), advPath);
+                file.SaveAs(path);
+            }
+            else
+            {
+                advPath = StringResources.NoImageFile;
             }
 
-            return View(model);
+            advertisement.MainImagePath = StringResources.ImagesPath + advPath;
+
+            uow.AdvertisementRepository.Insert(advertisement);
+            uow.Commit();
+                
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -149,7 +147,7 @@ namespace guestNetwork.Controllers
             if (ModelState.IsValid)
             {
                 uow.AdvertisementRepository.Update(advertisement);
-                uow.Save();
+                uow.Commit();
                 return Redirect(backUrl);
             }
 
@@ -192,7 +190,7 @@ namespace guestNetwork.Controllers
             }
 
             uow.AdvertisementRepository.Delete(id);
-            uow.Save();
+            uow.Commit();
 
             return RedirectToAction("Index");
         }

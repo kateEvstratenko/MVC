@@ -37,6 +37,7 @@
 
             @if (Request.IsAuthenticated)
             {
+         
                 if(Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
                 {
                     <p>@Ajax.ActionLink("Edit", "Edit", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })</p>

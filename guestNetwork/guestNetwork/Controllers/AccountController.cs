@@ -201,7 +201,7 @@ namespace guestNetwork.Controllers
             ViewBag.LanguagesList = GetLanguages(new List<string>(selectedLanguage));
 
             uow.UserRepository.Update(user);
-            uow.Save();
+            uow.Commit();
             return PartialView("_ChangePersonalInformation", model);
         }
         //

@@ -47,7 +47,7 @@ namespace guestNetwork
             get { return context; }
         }
 
-        public void Save()
+        public void Commit()
         {
             context.SaveChanges();
         }

@@ -21,6 +21,8 @@ namespace guestNetwork.Controllers
         public ActionResult Index()
         {
             return View(uow.ResponseRepository.GetAll());
+            // var responses = db.Responses.Include(r => r.Advertisement).Include(r => r.User);
+            // return View(responses.ToList());
         }
 
         // GET: /Response/Details/5
@@ -41,10 +43,15 @@ namespace guestNetwork.Controllers
         [Authorize]
         public ActionResult Create(int id)
         {
+            //ViewBag.Id = new SelectList(uow.AdvertisementRepository.Get(id), "Id", "Title");
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "Firstname");
+
             var model = new Response
             {
                 AdvertisementId = id,
                 UserId = Int32.Parse(User.Identity.GetUserId()),
+                //UserName = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).UserName,
+                //UserName = User.Identity.GetUserName()
             };
             return PartialView("_Create", model);
         }
@@ -64,7 +71,7 @@ namespace guestNetwork.Controllers
                 };
 
                 uow.ResponseRepository.Insert(response);
-                uow.Commit();
+                uow.Save();
 
                 response = uow.ResponseRepository.Get(responseModel.AdvertisementId);
                 return Details(response.AdvertisementId);
@@ -84,22 +91,28 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
+            //ViewBag.Id = new SelectList(uow.AdvertisementRepository.GetAll(), "Id", "Title", response.AdvertisementId);
+            //ViewBag.UserId = new SelectList(uow.UserRepository.GetAll(), "Id", "Firstname", response.UserId);
             return PartialView("_Edit", response);
         }
 
+        // POST: /Response/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Response response)
         {
-            if (!ModelState.IsValid)
-                return View(response);
+            if (ModelState.IsValid)
+            {
+                uow.ResponseRepository.Update(response);
+                uow.Save();
 
-            uow.ResponseRepository.Update(response);
-            uow.Commit();
+                var model = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == );
+                return PartialView("_Details", model);
+            }
 
-            var model = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == response.AdvertisementId);
-
-            return PartialView("_Details", model);
+            return View(response);
         }
 
         // GET: /Response/Delete/5
@@ -126,5 +139,14 @@ namespace guestNetwork.Controllers
             uow.ResponseRepository.Save();
             return RedirectToAction("Details", "Advertisement", new { id = id });
         }
+
+        /*protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }*/
     }
 }

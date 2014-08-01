@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using guestNetwork.Models;
 using System.Linq;
 
 namespace guestNetwork
 {
-    public abstract class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T: class
+    public abstract class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T : class
     {
         internal IApplicationDbContext Context;
         internal IDbSet<T> DbSet;
@@ -48,9 +49,9 @@ namespace guestNetwork
             return DbSet;
         }
 
-       public void Save()
-       {
-           Context.SaveChanges();
-       }
+        public void Save()
+        {
+            Context.SaveChanges();
+        }
     }
 }
