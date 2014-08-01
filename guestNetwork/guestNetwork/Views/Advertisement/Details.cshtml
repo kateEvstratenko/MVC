@@ -39,10 +39,12 @@
 <p>
     @if (Model.Response == null)
     {
-        if (Request.IsAuthenticated)
+        if (Request.IsAuthenticated && Int32.Parse(User.Identity.GetUserId()) != Model.UserId)
          {
              <div id="responseForm">
-                 @Ajax.ActionLink("Response to advertisement", "Create", "Response", new {id = Model.Id}, new AjaxOptions {UpdateTargetId = "responseForm"})
+                 @Ajax.ActionLink("Response to advertisement", "Create", "Response", 
+                    new {id = Model.Id}, 
+                    new AjaxOptions {UpdateTargetId = "responseForm"})
              </div>
          }
     }

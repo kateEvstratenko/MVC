@@ -70,29 +70,28 @@ namespace guestNetwork.Controllers
 
                 uow.ResponseRepository.Insert(response);
                 uow.Save();
-                return PartialView("_Details", responseModel);
-            }
 
-            //ViewBag.Id = new SelectList(db.Advertisements, "Id", "Title", response.Id);
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "Firstname", response.UserId);
+                response = uow.ResponseRepository.Get(responseModel.AdvertisementId);
+                return Details(response.AdvertisementId);
+            }
             return PartialView("_Create", responseModel);
         }
 
         // GET: /Response/Edit/5
-        /*public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Response response = db.Responses.Find(id);
+            Response response = uow.ResponseRepository.Get(id.Value);
             if (response == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.Advertisements, "Id", "Title", response.Id);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Firstname", response.UserId);
-            return View(response);
+            //ViewBag.Id = new SelectList(uow.AdvertisementRepository.GetAll(), "Id", "Title", response.AdvertisementId);
+            //ViewBag.UserId = new SelectList(uow.UserRepository.GetAll(), "Id", "Firstname", response.UserId);
+            return PartialView("_Edit", response);
         }
 
         // POST: /Response/Edit/5
@@ -100,16 +99,15 @@ namespace guestNetwork.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Message,UserId")] Response response)
+        public ActionResult Edit(Response response)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(response).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                uow.ResponseRepository.Update(response);
+                uow.Save();
+                return PartialView("_Details", response);
             }
-            ViewBag.Id = new SelectList(db.Advertisements, "Id", "Title", response.Id);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Firstname", response.UserId);
+
             return View(response);
         }
 
@@ -120,12 +118,12 @@ namespace guestNetwork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Response response = db.Responses.Find(id);
+            Response response = uow.ResponseRepository.Get(id.Value);
             if (response == null)
             {
                 return HttpNotFound();
             }
-            return View(response);
+            return View("_Delete", response);
         }
 
         // POST: /Response/Delete/5
@@ -133,13 +131,12 @@ namespace guestNetwork.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Response response = db.Responses.Find(id);
-            db.Responses.Remove(response);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            uow.ResponseRepository.Delete(id);
+            uow.ResponseRepository.Save();
+            return RedirectToAction("Details", "Advertisement", new { id = id });
         }
 
-        protected override void Dispose(bool disposing)
+        /*protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

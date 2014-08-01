@@ -54,3 +54,5 @@ D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.dll
 D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.Migrations.first.resources
 D:\Kate Evstratenko\MVC\guestNetwork\DAL\obj\Debug\DAL.csproj.GenerateResource.Cache
+D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.Migrations.first.resources
+D:\Курсы\MVC\guestNetwork\DAL\obj\Debug\DAL.csproj.GenerateResource.Cache

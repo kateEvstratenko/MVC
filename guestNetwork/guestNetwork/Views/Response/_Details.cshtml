@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
 @model guestNetwork.Models.Response
-
 @{
     Layout = null;
 }
@@ -13,34 +12,43 @@
     <title>Create</title>
 </head>
     <body>
-        <div>
-            <h4>Response</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Message)
-                </dt>
+        <div id="editResponse">
+            <div>
+                <h4>Response</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Message)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.Message)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Message)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.User.UserName)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.User.UserName)
-                </dd>
-            </dl>
+                    <dd>
+                        @Html.DisplayFor(model => model.User.UserName)
+                    </dd>
+                </dl>
+            </div>
+
+            @if (Request.IsAuthenticated)
+            {
+                if(Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
+                {
+                    <p>@Ajax.ActionLink("Edit", "Edit", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })</p>
+                    
+                    <p>@Ajax.ActionLink("Delete", "Delete", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })</p>
+                }
+                /*if (Int32.Parse(User.Identity.GetUserId()) == Model.Advertisement.UserId)
+                {
+                    @Ajax.ActionLink("Delete", "Delete", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })
+                }*/
+            }
         </div>
-
-        @if (Request.IsAuthenticated && Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
-        {
-            <p>
-                @Html.ActionLink("Edit", "Edit", new {id = Model.AdvertisementId})
-            </p>
-        }
 </body>
 </html>
 
