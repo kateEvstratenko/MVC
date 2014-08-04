@@ -283,7 +283,6 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Response\_Delete.cshtml" />
     <Content Include="Views\Response\_Edit.cshtml" />
-    <Content Include="Views\Response\Index.cshtml" />
     <Content Include="Views\Response\_Create.cshtml" />
     <Content Include="Views\Response\_Details.cshtml" />
     <Content Include="Views\Advertisement\_FilterForm.cshtml" />

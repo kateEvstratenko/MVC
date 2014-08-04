@@ -19,7 +19,8 @@
     
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> 
-                @Html.ActionLink("Cancel", "Details", "Advertisement", new { id = Model.AdvertisementId} , new {@class = "defaultButton"})
+                @Html.ActionLink("Cancel", "BackTo", "Advertisement", 
+                    new { backUrl = ViewBag.backUrl} , new {@class = "link-button"})
             </div>
         }
     </div>

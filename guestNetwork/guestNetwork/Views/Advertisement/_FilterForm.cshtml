@@ -6,8 +6,9 @@
     <div class="filterForm">
         <div class="filterFormItem">
             @Html.LabelFor(model => model.AdvertisementViewType, new { @class = "filterFormLabel" })
-            <div class="filterform-control">
-                @Html.DropDownListFor(model => model.AdvertisementViewType, new SelectList(Enum.GetValues(typeof(AdvertisementViewType))), new { @class = "form-control" })
+            <div class="filterform-control blue">
+                @Html.DropDownListFor(model => model.AdvertisementViewType, 
+                    new SelectList(Enum.GetValues(typeof(AdvertisementViewType))), new { @class = "form-control" })
             </div>
         </div>
 
@@ -19,7 +20,7 @@
         </div>
 
         <div class="filterFormItem">
-            <div class="filterform-control">
+            <div class="filterform-control blue">
                 <input type="submit" class="btn btn-default" value="Filter" />
             </div>
         </div>

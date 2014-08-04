@@ -1,6 +1,12 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: white;
+    /*background: linear-gradient(to right, #828c95 0%, #C6CFDB 40%, rgb(255, 255, 255) 100%);*/
+    background: linear-gradient(to right, #828c95 0%, #C6CFDB 20%, rgb(241, 241, 241) 100%);
+    /*background: linear-gradient(to right, white 0%, #C6CFDB 15%, #828c95 50% , #C6CFDB 85%, white 100%);*/
+
+    /*background: linear-gradient(to right, white 0%, #C6CFDB 10%, #D9E9F7 50% , #C6CFDB 90%, white 100%);*/
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -15,6 +21,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
 
 /* styles for validation helpers */
 .field-validation-error {
@@ -41,6 +48,32 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+input[type="submit"], select.form-control{
+    background: linear-gradient(to top, #ACB2B9 0%, #62798F 36%, #889DA8 100%);
+    color: white;
+}
+
+.link-button {
+    background: linear-gradient(to top, #ACB2B9 0%, #62798F 36%, #889DA8 100%);
+    color: white;
+
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 20px 0 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-color: #cccccc;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: normal;
+    line-height: 1.428571429;
+    vertical-align: middle;
+}
+
 .siteContent {
     width: 1170px;
     margin: 0 auto;
@@ -55,9 +88,13 @@ input[type="checkbox"].input-validation-error {
 }
 
 .title{
-    background-color:skyblue;
+    background-color: rgb(143, 198, 221);
     padding: 20px 0;
     text-align:center;
+    color: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    text-shadow: 3px 1px 5px rgba(0,0,0,0.8);
+    border-radius: 20px;
 }
 
 .mainAdvertisementsImage {
@@ -138,6 +175,8 @@ textarea.advertisementsContent{
 
 .boldFont {
     font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
 }
 
 .textWrap {
@@ -169,30 +208,19 @@ textarea.advertisementsContent{
     width: 300px;
 }
 
-.defaultButton {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-left: 100px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.428571429;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    -webkit-user-select: none;
 
-    color: #333333;
-    background-color: #ffffff;
-    border-color: #cccccc;
+.blue {
+    background-color: #CBE3F8;
 }
 
-.defaultButton:hover, .defaultButton:focus, .defaultButton:active {
-    color: #333333;
-    background-color: #ebebeb;
-    border-color: #adadad;
+.userInfoLink {
+    color: #1B2BE9;
     text-decoration: none;
+    padding: 6px;
+    border-radius: 4px;
+    background-color: #B1B8B9;
+}
+
+#responseForm {
+    margin-top: 30px;
 }

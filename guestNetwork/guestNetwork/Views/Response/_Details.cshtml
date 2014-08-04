@@ -16,23 +16,18 @@
             <div>
                 <h4>Response</h4>
                 <hr />
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Message)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Message)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.UserName)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.UserName)
-                    </dd>
-                </dl>
+                <p class="Title" >
+                     @Html.DisplayFor(model => model.Message)
+                </p>
+                <p>
+                    <span class="Title">
+                        User:
+                    </span>
+                    <span>
+                        @Html.ActionLink(Model.UserName, "Details", "Account",
+                            new { id = Model.UserId }, new { @class = "userInfoLink" })
+                    </span>
+                </p>
             </div>
 
             @if (Request.IsAuthenticated)
@@ -40,15 +35,25 @@
 
                 if (Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
                 {
-                    <p>@Ajax.ActionLink("Edit", "Edit", "Response", new {id = Model.AdvertisementId}, new AjaxOptions {UpdateTargetId = "editResponse"})</p>
+                    @Ajax.ActionLink("Edit", "Edit", "Response",
+                        new { id = Model.AdvertisementId },
+                        new AjaxOptions { UpdateTargetId = "editResponse" },
+                        new { @class = "link-button" })
+                    
 
-                    <p>@Ajax.ActionLink("Delete", "Delete", "Response", new {id = Model.AdvertisementId}, new AjaxOptions {UpdateTargetId = "editResponse"})</p>
+                    @Ajax.ActionLink("Delete", "Delete", "Response",
+                        new { id = Model.AdvertisementId, backUrl = Request.Url.ToString() },
+                        new AjaxOptions { UpdateTargetId = "editResponse" },
+                        new { @class = "link-button" })
+                    
                 }
                 else
                 {
                     if(Int32.Parse(User.Identity.GetUserId()) == Model.AdvertisementUserId)
                     {
-                        @Ajax.ActionLink("Delete", "Delete", "Response", new {id = Model.AdvertisementId}, new AjaxOptions {UpdateTargetId = "editResponse"})
+                        @Ajax.ActionLink("Delete", "Delete", "Response",
+                                 new { id = Model.AdvertisementId, backUrl = Request.Url.ToString() },
+                            new AjaxOptions {UpdateTargetId = "editResponse"})
                     }
                 }
             }

@@ -25,7 +25,8 @@
                 </div>
                 <div class="advertisementsInformationstring">
                     <span class="boldFont ">User: </span>
-                    @Html.ActionLink(Model.UserName, "Details", "Account", new { id = Model.UserId, backUrl = ViewBag.Url }, null)
+                    @Html.ActionLink(Model.UserName, "Details", "Account", 
+                        new { id = Model.UserId}, new {@class = "userInfoLink"})
                 </div>
                 <div class="advertisementsInformationString">
                     <span class="boldFont">Type: </span>
@@ -38,5 +39,5 @@
 
 @if (Request.IsAuthenticated)
 {
-    @Html.Action("ViewForAdvertisement", "Response", new { id = Model.Id})
+    @Html.Action("ViewForAdvertisement", "Response", new { id = Model.Id })
 }

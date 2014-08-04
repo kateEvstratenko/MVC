@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc;
 @model PagedList.IPagedList<guestNetwork.ViewModels.AdvertisementViewModel>
 
 @{
@@ -31,12 +30,14 @@
                         <span class="boldFont">Type: </span>
                         @Html.DisplayFor(modelItem => item.Type)
                     </div>
+                    <div>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id, backUrl = Request.Url.ToString() },
+                            new { @class="link-button"})
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id, backUrl = Request.Url.ToString()},
+                            new { @class="link-button" })
+                    </div>
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, backUrl = Request.Url.ToString()}) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, backUrl = Request.Url.ToString() })
-                </td>
-                @Html.Action("Details", "Response", new { id = item.Id })
+                <td>@Html.Action("Details", "Response", new { id = item.Id })</td>
             </tr>
             <tr class="advertisementsTableEmptyRow">
                 <td colspan="2">

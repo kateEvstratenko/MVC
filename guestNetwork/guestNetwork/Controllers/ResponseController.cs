@@ -57,13 +57,15 @@ namespace guestNetwork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }*/
-            Response response = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == id);
+            Response response = uow.ResponseRepository.GetAll().Include("User").Include("Advertisement").SingleOrDefault(x => x.AdvertisementId == id);
             if (response == null)
             {
                 return HttpNotFound();
             }
 
             var model = Mapper.Map<ResponseViewModel>(response);
+
+            ViewBag.backUrl = Request.Url.ToString();
 
             return PartialView("_Details", model);
         }
@@ -76,6 +78,7 @@ namespace guestNetwork.Controllers
             {
                 AdvertisementId = id,
                 UserId = user.Id,
+                AdvertisementUserId = uow.AdvertisementRepository.Get(id).UserId,
                 UserName = user.UserName,
                 Message = ""
             };
@@ -134,7 +137,7 @@ namespace guestNetwork.Controllers
         }
 
         // GET: /Response/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string backUrl)
         {
             if (id == null)
             {
@@ -148,17 +151,25 @@ namespace guestNetwork.Controllers
 
             var model = Mapper.Map<ResponseViewModel>(response);
 
+            ViewBag.backUrl = backUrl;
+
             return View("_Delete", model);
         }
 
         // POST: /Response/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string backUrl)
         {
             uow.ResponseRepository.Delete(id);
             uow.Commit();
-            return RedirectToAction("Details", "Advertisement", new { id = id });
+            return BackTo(backUrl);
+        }
+
+
+        public ActionResult BackTo(string backUrl)
+        {
+            return Redirect(backUrl);
         }
     }
 }

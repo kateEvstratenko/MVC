@@ -58,8 +58,8 @@
                     </div>
                     <div class="advertisementsInformationString">
                         <span class="boldFont">User: </span>
-                        @Html.ActionLink(item.UserName, "Details", "Account", 
-                            new { id = item.UserId, backUrl = ViewBag.Url }, null)
+                        @Html.ActionLink(item.UserName, "Details", "Account",
+                            new { id = item.UserId, backUrl = ViewBag.Url }, new { @class = "userInfoLink" })
                     </div>
                     <div class="advertisementsInformationString">
                         <span class="boldFont">Type: </span>

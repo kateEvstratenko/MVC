@@ -45,15 +45,13 @@ namespace guestNetwork.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-        public ActionResult Details(int id, string backUrl)
+        public ActionResult Details(int id)
         {
             User user = uow.UserRepository.Get(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.BackUrl = backUrl;
 
             var model = Mapper.Map<UserDetailsViewModel>(user);
             return View(model);
