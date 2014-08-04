@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
-using guestNetwork;
-using guestNetwork.Models;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using DAL.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
@@ -13,10 +14,10 @@ namespace DAL
 
         }
 
-        private GuestNetworkRepository<User> _userRepo;
-        private GuestNetworkRepository<Advertisement> _advertismentRepo;
-        private GuestNetworkRepository<Language> _languageRepo;
-        private GuestNetworkRepository<Response> _responseRepo;
+        private GuestNetworkRepository<User> _userRepository;
+        private GuestNetworkRepository<Advertisement> _advertismentRepository;
+        private GuestNetworkRepository<Language> _languageRepository;
+        private GuestNetworkRepository<Response> _responseRepository;
 
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Language> Languages { get; set; }
@@ -25,27 +26,40 @@ namespace DAL
 
         public IGuestNetworkRepository<User> UserRepository
         {
-            get { return _userRepo ?? (_userRepo = new GuestNetworkRepository<User>(Users)); }
+            get { return _userRepository ?? (_userRepository = new GuestNetworkRepository<User>(Users, this)); }
         }
 
         public IGuestNetworkRepository<Advertisement> AdvertisementRepository
         {
-            get { return _advertismentRepo ?? (_advertismentRepo = new GuestNetworkRepository<Advertisement>(Advertisements)); }
+            get { return _advertismentRepository ?? (_advertismentRepository = new GuestNetworkRepository<Advertisement>(Advertisements, this)); }
         }
 
         public IGuestNetworkRepository<Language> LanguageRepository
         {
-            get { return _languageRepo ?? (_languageRepo = new GuestNetworkRepository<Language>(Languages)); }
+            get { return _languageRepository ?? (_languageRepository = new GuestNetworkRepository<Language>(Languages, this)); }
         }
 
         public IGuestNetworkRepository<Response> ResponseRepository
         {
-            get { return _responseRepo ?? (_responseRepo = new GuestNetworkRepository<Response>(Responses)); }
+            get { return _responseRepository ?? (_responseRepository = new GuestNetworkRepository<Response>(Responses, this)); }
         }
 
         public void Commit()
         {
-            SaveChanges();
+            try
+            {
+                SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
         }
     }
 }

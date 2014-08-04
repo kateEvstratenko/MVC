@@ -1,4 +1,4 @@
-﻿@model guestNetwork.Models.ResponseViewModel
+﻿@model guestNetwork.ViewModels.ResponseViewModel
 
 @{
     Layout = null;
@@ -27,7 +27,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Message, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Message)
+                    @Html.TextBoxFor(model => model.Message, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Message)
                 </div>
             </div>

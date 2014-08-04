@@ -1,4 +1,4 @@
-﻿namespace guestNetwork
+﻿namespace DAL
 {
     public static class GuestNetworkConstants
     {

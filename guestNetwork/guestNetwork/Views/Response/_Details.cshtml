@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model guestNetwork.Models.ResponseViewModel
+@model guestNetwork.ViewModels.ResponseViewModel
 @{
     Layout = null;
 }
@@ -37,17 +37,20 @@
 
             @if (Request.IsAuthenticated)
             {
-         
-                if(Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
+
+                if (Int32.Parse(User.Identity.GetUserId()) == Model.UserId)
                 {
-                    <p>@Ajax.ActionLink("Edit", "Edit", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })</p>
-                    
-                    <p>@Ajax.ActionLink("Delete", "Delete", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })</p>
+                    <p>@Ajax.ActionLink("Edit", "Edit", "Response", new {id = Model.AdvertisementId}, new AjaxOptions {UpdateTargetId = "editResponse"})</p>
+
+                    <p>@Ajax.ActionLink("Delete", "Delete", "Response", new {id = Model.AdvertisementId}, new AjaxOptions {UpdateTargetId = "editResponse"})</p>
                 }
-                /*if (Int32.Parse(User.Identity.GetUserId()) == Model.Advertisement.UserId)
+                else
                 {
-                    @Ajax.ActionLink("Delete", "Delete", "Response", new { id = Model.AdvertisementId }, new AjaxOptions { UpdateTargetId = "editResponse" })
-                }*/
+                    if(Int32.Parse(User.Identity.GetUserId()) == Model.AdvertisementUserId)
+                    {
+                        @Ajax.ActionLink("Delete", "Delete", "Response", new {id = Model.AdvertisementId}, new AjaxOptions {UpdateTargetId = "editResponse"})
+                    }
+                }
             }
         </div>
 </body>

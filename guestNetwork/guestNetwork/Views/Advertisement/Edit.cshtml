@@ -1,5 +1,5 @@
-﻿@using guestNetwork.Models
-@model guestNetwork.Models.Advertisement
+﻿@using Type = DAL.Models.Type
+@model guestNetwork.ViewModels.AdvertisementViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -38,7 +38,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Content, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Content, new { @class = "form-control advertisementsContent", @maxlength = GuestNetworkConstants.ContentFieldLength })
+                @Html.TextAreaFor(model => model.Content, 
+                    new
+                    {
+                        @class = "form-control advertisementsContent", 
+                        @maxlength = GuestNetworkConstants.ContentFieldLength
+                    })
                 @Html.ValidationMessageFor(model => model.Content)
             </div>
         </div>
@@ -47,7 +52,7 @@
             @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Type, new SelectList(
-                Enum.GetValues(typeof(guestNetwork.Models.Type))),
+                Enum.GetValues(typeof(Type))),
                 new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Type)
             </div>

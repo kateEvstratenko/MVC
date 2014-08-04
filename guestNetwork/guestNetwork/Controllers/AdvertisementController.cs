@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using DAL;
-using guestNetwork.Models;
+using DAL.Models;
+using guestNetwork.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using PagedList;
@@ -21,31 +23,14 @@ namespace guestNetwork.Controllers
 
         // GET: /Advertisement/
         [Authorize]
-        public ActionResult Index(List<AdvertisementViewModel> model, int? page)
+        public ActionResult Index(IList<AdvertisementViewModel> model, int? page)
         {
             int pageNumber = page ?? GuestNetworkConstants.DefaultPageNumber;
 
-            var advertisements = new List<Advertisement>();
-
             if (model == null)
             {
-                advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
-                
-                model = new List<AdvertisementViewModel>();
-
-                foreach (var adv in advertisements)
-                {
-                    model.Add(new AdvertisementViewModel
-                    {
-                        Id = adv.Id,
-                        Title = adv.Title,
-                        MainImagePath = adv.MainImagePath,
-                        Content = adv.Content,
-                        Type = adv.Type,
-                        UserId = adv.UserId,
-                        UserName = adv.User.UserName
-                    });
-                }
+                var advertisements = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())).Advertisements.ToList();
+                model = Mapper.Map<IList<AdvertisementViewModel>>(advertisements);
             }
 
             return View(model.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
@@ -53,22 +38,12 @@ namespace guestNetwork.Controllers
 
         public ActionResult LastAdvertisements()
         {
-            var advertisements = uow.AdvertisementRepository.GetAll().OrderByDescending(x => x.Id).ToList().Take(GuestNetworkConstants.IndexPageAdvertisementsCount);
+            var advertisements = uow.AdvertisementRepository
+                .GetAll()
+                .OrderByDescending(x => x.Id).ToList()
+                .Take(GuestNetworkConstants.IndexPageAdvertisementsCount);
 
-            var model = new List<AdvertisementViewModel>();
-            foreach (var adv in advertisements)
-            {
-                model.Add(new AdvertisementViewModel
-                {
-                    Id = adv.Id,
-                    Title = adv.Title,
-                    MainImagePath = adv.MainImagePath,
-                    Content = adv.Content,
-                    Type = adv.Type,
-                    UserId = adv.UserId,
-                    UserName = adv.User.UserName
-                });
-            }
+            var model = Mapper.Map<IList<AdvertisementViewModel>>(advertisements);
 
             return PartialView("_LastAdvertisements", model);
         }
@@ -98,7 +73,9 @@ namespace guestNetwork.Controllers
             ViewBag.onlyActive = onlyActive;
             ViewBag.type = type;
 
-            return View("ViewAll", advertisements.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
+            var model = Mapper.Map<IList<AdvertisementViewModel>>(advertisements);
+
+            return View("ViewAll", model.ToPagedList(pageNumber, GuestNetworkConstants.PageSize));
         }
 
         public ActionResult ShowFilterForm(FilterAdvertisementViewModel model, string backUrl)
@@ -108,6 +85,7 @@ namespace guestNetwork.Controllers
             return PartialView("_FilterForm", model);
         }
 
+        [Authorize]
         public ActionResult Details(int id, string backUrl)
         {
             var advertisement = uow.AdvertisementRepository.Get(id);
@@ -116,16 +94,7 @@ namespace guestNetwork.Controllers
                 return HttpNotFound();
             }
 
-            var model = new AdvertisementViewModel
-            {
-                Id = advertisement.Id,
-                Title = advertisement.Title,
-                MainImagePath = advertisement.MainImagePath,
-                Content = advertisement.Content,
-                Type = advertisement.Type,
-                UserId = advertisement.UserId,
-                UserName = advertisement.User.UserName
-            };
+            var model = Mapper.Map<AdvertisementViewModel>(advertisement);
 
             return View(model);
         }
@@ -184,23 +153,27 @@ namespace guestNetwork.Controllers
             }
 
             ViewBag.BackUrl = backUrl;
-            return View(advertisement);
+            var model = Mapper.Map<AdvertisementViewModel>(advertisement);
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit(Advertisement advertisement, string backUrl)
+        public ActionResult Edit(AdvertisementViewModel model, string backUrl)
         {
             if (ModelState.IsValid)
             {
+                var advertisement = Mapper.Map<Advertisement>(model);
+
                 uow.AdvertisementRepository.Update(advertisement);
                 uow.Commit();
                 return Redirect(backUrl);
             }
 
             ViewBag.BackUrl = backUrl;
-            return View(advertisement);
+            return View(model);
         }
 
         [Authorize]
@@ -213,7 +186,9 @@ namespace guestNetwork.Controllers
             }
 
             ViewBag.BackUrl = backUrl;
-            return View(advertisement);
+
+            var model = Mapper.Map<AdvertisementViewModel>(advertisement);
+            return View(model);
         }
 
         [HttpPost, ActionName("Delete")]

@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DAL;
 
-
-namespace guestNetwork.Models
+namespace Domain.Models
 {
-    public class AdvertisementViewModel
+    public class Advertisement : Identity
     {
-        public int Id { get; set; }
-
         [Required]
+        public int UserId { get; set; }
+        
+        [Required]
+        [MaxLength(GuestNetworkConstants.StringFieldLength, ErrorMessage = "{0} must be maximum of {1}")]
         public string Title { get; set; }
-
+        
         public string MainImagePath { get; set; }
-
+        
         [Required]
         [MaxLength(GuestNetworkConstants.ContentFieldLength, ErrorMessage = "{0} must be maximum of {1}")]
         public string Content { get; set; }
@@ -19,9 +21,8 @@ namespace guestNetwork.Models
         [Required]
         public virtual Type Type { get; set; }
 
-        public int UserId { get; set; }
+        public virtual User User { get; set; }
 
-        public string UserName { get; set; }
-
+        public virtual Response Response { get; set; }
     }
 }

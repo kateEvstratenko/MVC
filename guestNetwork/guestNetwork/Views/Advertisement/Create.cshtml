@@ -1,5 +1,5 @@
-﻿@using guestNetwork.Models
-@model guestNetwork.Models.AdvertisementViewModel
+﻿@using Type = DAL.Models.Type
+@model guestNetwork.ViewModels.AdvertisementViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -41,7 +41,7 @@
             @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Type, 
-                    new SelectList(Enum.GetValues(typeof(guestNetwork.Models.Type))), new { @class = "form-control" })
+                    new SelectList(Enum.GetValues(typeof(Type))), new { @class = "form-control" })
 
                 @Html.ValidationMessageFor(model => model.Type)
             </div>

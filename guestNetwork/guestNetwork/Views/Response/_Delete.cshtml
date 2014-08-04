@@ -1,4 +1,4 @@
-﻿@model guestNetwork.Models.Response
+﻿@model guestNetwork.ViewModels.ResponseViewModel
 
 @{
     Layout = null;
@@ -18,8 +18,8 @@
             @Html.AntiForgeryToken()
     
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Cancel", "Details", "Advertisement", new { id = Model.AdvertisementId} , null)
+                <input type="submit" value="Delete" class="btn btn-default" /> 
+                @Html.ActionLink("Cancel", "Details", "Advertisement", new { id = Model.AdvertisementId} , new {@class = "defaultButton"})
             </div>
         }
     </div>

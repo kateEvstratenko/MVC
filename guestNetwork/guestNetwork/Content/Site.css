@@ -51,6 +51,7 @@ input[type="checkbox"].input-validation-error {
     background-position: center center;
     background-repeat: no-repeat;
     height: 560px;
+    background-size: 100%;
 }
 
 .title{
@@ -166,4 +167,32 @@ textarea.advertisementsContent{
 
 .advertisementsImage {
     width: 300px;
+}
+
+.defaultButton {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-left: 100px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+
+.defaultButton:hover, .defaultButton:focus, .defaultButton:active {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+    text-decoration: none;
 }

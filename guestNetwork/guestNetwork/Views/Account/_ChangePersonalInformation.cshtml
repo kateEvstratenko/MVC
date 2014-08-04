@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model guestNetwork.Models.ChangeUserPersonalInformationViewModel
+@model guestNetwork.ViewModels.ChangeUserPersonalInformationViewModel
 
 <div id="changePersonalInformationForm">
     @using (Ajax.BeginForm("ChangePersonalInformation", null, new AjaxOptions { UpdateTargetId = "changePersonalInformationForm" }, new { @class = "form-horizontal", role = "form" }))

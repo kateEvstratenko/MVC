@@ -1,4 +1,5 @@
-﻿@model guestNetwork.Models.FilterAdvertisementViewModel
+﻿@using guestNetwork.ViewModels
+@model guestNetwork.ViewModels.FilterAdvertisementViewModel
 
 @using (@Html.BeginForm("ViewAdvertisementsList", "Advertisement", new { backUrl = ViewBag.Url }))
 {
@@ -6,7 +7,7 @@
         <div class="filterFormItem">
             @Html.LabelFor(model => model.AdvertisementViewType, new { @class = "filterFormLabel" })
             <div class="filterform-control">
-                @Html.DropDownListFor(model => model.AdvertisementViewType, new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType))), new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.AdvertisementViewType, new SelectList(Enum.GetValues(typeof(AdvertisementViewType))), new { @class = "form-control" })
             </div>
         </div>
 

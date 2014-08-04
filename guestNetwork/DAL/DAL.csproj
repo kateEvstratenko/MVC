@@ -83,15 +83,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GuestNetworkConstants.cs" />
-    <Compile Include="Migrations\201408010920411_attributes.cs" />
-    <Compile Include="Migrations\201408010920411_attributes.Designer.cs">
-      <DependentUpon>201408010920411_attributes.cs</DependentUpon>
+    <Compile Include="Migrations\201408020906104_attributes.cs" />
+    <Compile Include="Migrations\201408020906104_attributes.Designer.cs">
+      <DependentUpon>201408020906104_attributes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Advertisement.cs" />
-    <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="GuestNetworkRepository.cs" />
-    <Compile Include="IApplicationDbContext.cs" />
     <Compile Include="Models\Identity.cs" />
     <Compile Include="IGuestNetworkRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
@@ -106,8 +104,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201408010920411_attributes.resx">
-      <DependentUpon>201408010920411_attributes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201408020906104_attributes.resx">
+      <DependentUpon>201408020906104_attributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

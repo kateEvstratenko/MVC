@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace guestNetwork.Models
+namespace guestNetwork.ViewModels
 {
     public class LoginViewModel
     {

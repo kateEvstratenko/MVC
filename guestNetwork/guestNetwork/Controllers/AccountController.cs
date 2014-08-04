@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using DAL;
+using DAL.Models;
+using guestNetwork.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using guestNetwork.Models;
 using System.Collections.Generic;
 
 
@@ -52,7 +54,9 @@ namespace guestNetwork.Controllers
             }
 
             ViewBag.BackUrl = backUrl;
-            return View(user);
+
+            var model = Mapper.Map<UserDetailsViewModel>(user);
+            return View(model);
         }
 
         //
@@ -108,16 +112,8 @@ namespace guestNetwork.Controllers
             {
                 var lan = uow.LanguageRepository.GetAll().Where(x => model.Languages.Contains(x.Id.ToString())).ToList();
 
-                var user = new User()
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    Firstname = model.Firstname, 
-                    Surname = model.Surname,
-                    Country = model.Country,
-                    City = model.City,
-                    Languages = lan
-                };
+                var user = Mapper.Map<User>(model);
+                user.Languages = lan;
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -125,10 +121,8 @@ namespace guestNetwork.Controllers
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    AddErrors(result);
-                }
+
+                AddErrors(result);
             }
 
             var selectedLanguage = uow.LanguageRepository.GetAll().First();
@@ -147,7 +141,10 @@ namespace guestNetwork.Controllers
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
-            IdentityResult result = await UserManager.RemoveLoginAsync(Int32.Parse(User.Identity.GetUserId()), new UserLoginInfo(loginProvider, providerKey));
+            IdentityResult result = await UserManager.RemoveLoginAsync(
+                Int32.Parse(User.Identity.GetUserId()), 
+                new UserLoginInfo(loginProvider, providerKey));
+
             if (result.Succeeded)
             {
                 message = ManageMessageId.RemoveLoginSuccess;
@@ -188,7 +185,7 @@ namespace guestNetwork.Controllers
             if (ModelState.IsValid)
             {
                 var lan = uow.LanguageRepository.GetAll().Where(x => model.Languages.Contains(x.Id.ToString())).ToList();
-                user.Languages.Clear(); 
+                user.Languages.Clear();
 
                 ViewBag.Message = "Changes saved success";
 
@@ -206,7 +203,7 @@ namespace guestNetwork.Controllers
             uow.Commit();
             return PartialView("_ChangePersonalInformation", model);
         }
-        //
+
         // GET: /Account/Manage
         public ActionResult Manage(ManageMessageId? message)
         {

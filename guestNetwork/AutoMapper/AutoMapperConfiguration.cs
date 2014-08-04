@@ -1,6 +1,6 @@
-﻿using guestNetwork.Models;
+﻿using AutoMapper;
 
-namespace AutoMapper
+namespace guestNetwork.Models
 {
     public static class AutoMapperConfiguration
     {

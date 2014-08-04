@@ -1,4 +1,4 @@
-﻿using guestNetwork.Models;
+﻿using DAL.Models;
 
 namespace DAL
 {

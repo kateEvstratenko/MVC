@@ -1,15 +1,18 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using guestNetwork;
+using DAL.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DAL
 {
     public class GuestNetworkRepository<T> : IGuestNetworkRepository<T> where T : class
     {
         internal IDbSet<T> DbSet;
-        public GuestNetworkRepository(IDbSet<T> dbSet)
+        internal IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim> Context;
+        public GuestNetworkRepository(IDbSet<T> dbSet, IdentityDbContext<User, CustomRole, int, CustomUserLogin, CustomUserRole, CustomUserClaim> context)
         {
             DbSet = dbSet;
+            Context = context;
         }
 
         public void Insert(T entity)
@@ -27,6 +30,7 @@ namespace DAL
         public void Update(T entity)
         {
             DbSet.Attach(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public T Get(int id)

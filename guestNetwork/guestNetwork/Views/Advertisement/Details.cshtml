@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model guestNetwork.Models.AdvertisementViewModel
+@model guestNetwork.ViewModels.AdvertisementViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -36,7 +36,7 @@
     </table>
 </div>
 
-@if (Request.IsAuthenticated && Int32.Parse(User.Identity.GetUserId()) != Model.UserId)
+@if (Request.IsAuthenticated)
 {
     @Html.Action("ViewForAdvertisement", "Response", new { id = Model.Id})
 }

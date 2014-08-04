@@ -1,4 +1,4 @@
-﻿@model guestNetwork.Models.Advertisement
+﻿@model guestNetwork.ViewModels.AdvertisementViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -13,11 +13,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
+            @Html.DisplayNameFor(model => model.UserName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.UserName)
+            @Html.DisplayFor(model => model.UserName)
         </dd>
 
         <dt>

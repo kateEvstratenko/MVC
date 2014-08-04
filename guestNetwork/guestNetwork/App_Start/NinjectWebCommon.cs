@@ -1,19 +1,16 @@
+using System;
+using System.Web;
 using DAL;
-using guestNetwork.Models;
+using guestNetwork;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(guestNetwork.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(guestNetwork.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
 
-namespace guestNetwork.App_Start
+namespace guestNetwork
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -65,14 +62,6 @@ namespace guestNetwork.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
-            //kernel.Bind<IGuestNetworkRepository<User>>().To<GuestNetworkRepository<User>>().InSingletonScope();
-            //kernel.Bind<IGuestNetworkRepository<Advertisement>>().To<GuestNetworkRepository<Advertisement>>().InSingletonScope();
-            //kernel.Bind<IGuestNetworkRepository<Language>>().To<GuestNetworkRepository<Language>>().InSingletonScope();
-            //kernel.Bind<IGuestNetworkRepository<Response>>().To<GuestNetworkRepository<Response>>().InSingletonScope();
-
-            //kernel.Bind<IApplicationDbContext>().To<ApplicationDbContext>().InSingletonScope();
-            //kernel.Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
-
         }
     }
 }

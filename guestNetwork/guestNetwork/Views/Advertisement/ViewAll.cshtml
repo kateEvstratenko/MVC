@@ -1,7 +1,7 @@
 ﻿@using System.Web.UI.WebControls
-@using guestNetwork.Models
+@using guestNetwork.ViewModels
 @using PagedList.Mvc;
-@model PagedList.IPagedList<guestNetwork.Models.Advertisement>
+@model PagedList.IPagedList<guestNetwork.ViewModels.AdvertisementViewModel>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +13,9 @@
         <div class="filterFormItem">
             @Html.Label("Type", new { @class = "filterFormLabel" })
             <div class="filterform-control">
-                @Html.DropDownList("type", new SelectList(Enum.GetValues(typeof(guestNetwork.Models.AdvertisementViewType)), ViewBag.type), new { @class = "form-control" })
+                @Html.DropDownList("type", new SelectList(
+                        Enum.GetValues(typeof(AdvertisementViewType)), ViewBag.type), 
+                        new { @class = "form-control" })
             </div>
         </div>
 
@@ -56,7 +58,8 @@
                     </div>
                     <div class="advertisementsInformationString">
                         <span class="boldFont">User: </span>
-                        @Html.ActionLink(item.User.UserName, "Details", "Account", new { id = item.User.Id, backUrl = ViewBag.Url }, null)
+                        @Html.ActionLink(item.UserName, "Details", "Account", 
+                            new { id = item.UserId, backUrl = ViewBag.Url }, null)
                     </div>
                     <div class="advertisementsInformationString">
                         <span class="boldFont">Type: </span>
@@ -74,7 +77,8 @@
 
     <div class="pagedList">
 
-        @Html.PagedListPager(Model, page => Url.Action("ViewAll", "Advertisement", new { page, backUrl = ViewBag.Url, onlyActive = ViewBag.onlyActive, type = ViewBag.type }),
+        @Html.PagedListPager(Model, page => Url.Action("ViewAll", "Advertisement", 
+            new { page, backUrl = ViewBag.Url, onlyActive = ViewBag.onlyActive, type = ViewBag.type }),
             new PagedListRenderOptions
             {
                 LinkToFirstPageFormat = "<<",

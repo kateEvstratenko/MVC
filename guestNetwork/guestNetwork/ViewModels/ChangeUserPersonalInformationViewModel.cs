@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace guestNetwork.Models
+namespace guestNetwork.ViewModels
 {
     public class ChangeUserPersonalInformationViewModel
     {
+
         [Required]
         [Display(Name = "Firstname")]
         public string Firstname { get; set; }

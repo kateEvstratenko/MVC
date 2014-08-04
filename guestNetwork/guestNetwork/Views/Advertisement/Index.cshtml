@@ -1,5 +1,6 @@
-﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<guestNetwork.Models.AdvertisementViewModel>
+﻿@using Microsoft.AspNet.Identity
+@using PagedList.Mvc;
+@model PagedList.IPagedList<guestNetwork.ViewModels.AdvertisementViewModel>
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,9 +18,7 @@
         {
             <tr class="advertisementsTableRow">
                 <td class="advertisementsImage">
-                    <a href="@Url.Action("Details", "Advertisement", new { id = item.Id, backUrl = ViewBag.Url })">
-                        <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
-                    </a>
+                    <img src="@Url.Content(item.MainImagePath)" class="mainAdvertisementsImage" alt="image" />
                 </td>
                 <td class="advertisementsInformation">
                     <div class=" Title boldFont advertisementsInformationString">
@@ -33,6 +32,11 @@
                         @Html.DisplayFor(modelItem => item.Type)
                     </div>
                 </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, backUrl = Request.Url.ToString()}) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, backUrl = Request.Url.ToString() })
+                </td>
+                @Html.Action("Details", "Response", new { id = item.Id })
             </tr>
             <tr class="advertisementsTableEmptyRow">
                 <td colspan="2">

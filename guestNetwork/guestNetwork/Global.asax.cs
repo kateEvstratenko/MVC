@@ -13,7 +13,7 @@ namespace guestNetwork
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //AutoMapperConfiguration.
+            AutoMapperConfiguration.Configure();
         }
     }
 }

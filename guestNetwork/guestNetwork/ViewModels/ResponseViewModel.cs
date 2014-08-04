@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace guestNetwork.Models
+namespace guestNetwork.ViewModels
 {
     public class ResponseViewModel
     {
@@ -9,5 +9,6 @@ namespace guestNetwork.Models
         public string Message { get; set; }
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public int AdvertisementUserId { get; set; }
     }
 }

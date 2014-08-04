@@ -377,3 +377,9 @@ D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.dll
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\DAL.pdb
 D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.StringResources.resources
 D:\Курсы\MVC\guestNetwork\guestNetwork\obj\Debug\guestNetwork.StringResources.resources
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\AutoMapper.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\AutoMapper.Net4.dll
+D:\Курсы\MVC\guestNetwork\guestNetwork\bin\AutoMapper.xml
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\AutoMapper.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\AutoMapper.Net4.dll
+D:\Kate Evstratenko\MVC\guestNetwork\guestNetwork\bin\AutoMapper.xml

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace guestNetwork.Models
+namespace DAL.Models
 {
     public class Language : Identity
     {

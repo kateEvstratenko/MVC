@@ -1,17 +1,20 @@
-﻿using guestNetwork.Models;
+﻿using DAL.Models;
 
 namespace DAL.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<UnitOfWork>
+    internal sealed class Configuration : DbMigrationsConfiguration<DAL.UnitOfWork>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(UnitOfWork context)
+        protected override void Seed(DAL.UnitOfWork context)
         {
             context.Languages.AddOrUpdate(
                             x => x.Name,

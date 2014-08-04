@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using AutoMapper;
 using DAL;
-using guestNetwork.Models;
+using DAL.Models;
+using guestNetwork.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace guestNetwork.Controllers
 {
+    [Authorize]
     public class ResponseController : Controller
     {
         private readonly IUnitOfWork uow;
@@ -18,58 +22,56 @@ namespace guestNetwork.Controllers
             uow = uowInstance;
         }
 
-        [Authorize]
         public ActionResult Index()
         {
-            return View(uow.ResponseRepository.GetAll());
+            var responses = uow.ResponseRepository.GetAll();
+
+            var model = Mapper.Map<IList<ResponseViewModel>>(responses);
+
+            return View(model);
         }
 
         public ActionResult ViewForAdvertisement(int id)
         {
+            var advertisement = uow.AdvertisementRepository.Get(id);
+
+            if(advertisement.Response == null )
+                if (Int32.Parse(User.Identity.GetUserId()) != advertisement.UserId)
+                {
+                    return PartialView("_ViewForAdvertisement", id);
+                }
+                else
+                {
+                    return new EmptyResult();
+                }
+
             var response = uow.ResponseRepository.Get(id);
-
-            if(response == null)
-                return PartialView("_ViewForAdvertisement", id);
-
-            var model = new ResponseViewModel()
-            {
-                AdvertisementId = response.AdvertisementId,
-                UserId = response.UserId,
-                Message = response.Message,
-                UserName = response.User.UserName
-            };
+            var model = Mapper.Map<ResponseViewModel>(response);
 
             return PartialView("_Details", model);
         }
 
-        // GET: /Response/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Response response = uow.ResponseRepository.Get(id.Value);
+            }*/
+            Response response = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == id);
             if (response == null)
             {
                 return HttpNotFound();
             }
 
-            var model = new ResponseViewModel
-            {
-                AdvertisementId = response.AdvertisementId,
-                UserId = response.UserId,
-                Message = response.Message,
-               // UserName = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == response.AdvertisementId).User.UserName;
-            };
+            var model = Mapper.Map<ResponseViewModel>(response);
 
             return PartialView("_Details", model);
         }
 
-        [Authorize]
         public ActionResult Create(int id)
         {
-            var user = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId()));
+            var user = uow.UserRepository.Get(Int32.Parse(User.Identity.GetUserId())); 
+
             var model = new ResponseViewModel
             {
                 AdvertisementId = id,
@@ -80,27 +82,21 @@ namespace guestNetwork.Controllers
             return PartialView("_Create", model);
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ResponseViewModel responseModel)
+        public ActionResult Create(ResponseViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = new Response
-                {
-                    AdvertisementId = responseModel.AdvertisementId,
-                    UserId = responseModel.UserId,
-                    Message = responseModel.Message,
-                };
+                var response = Mapper.Map<Response>(model);
 
                 uow.ResponseRepository.Insert(response);
                 uow.Commit();
 
-                response = uow.ResponseRepository.Get(responseModel.AdvertisementId);
+                response = uow.ResponseRepository.Get(model.AdvertisementId);
                 return Details(response.AdvertisementId);
             }
-            return PartialView("_Create", responseModel);
+            return PartialView("_Create", model);
         }
 
         // GET: /Response/Edit/5
@@ -117,13 +113,8 @@ namespace guestNetwork.Controllers
                 return HttpNotFound();
             }
 
-            var model = new ResponseViewModel
-            {
-                AdvertisementId = response.AdvertisementId,
-                UserId = response.UserId,
-                UserName = response.User.UserName,
-                Message = response.Message
-            };
+            var model = Mapper.Map<ResponseViewModel>(response);
+
             return PartialView("_Edit", model);
         }
 
@@ -134,17 +125,10 @@ namespace guestNetwork.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var response = new Response
-            {
-                AdvertisementId = model.AdvertisementId,
-                UserId = model.UserId,
-                Message = model.Message,
-            };
+            var response = Mapper.Map<Response>(model);
 
             uow.ResponseRepository.Update(response);
             uow.Commit();
-
-            //response = uow.ResponseRepository.GetAll().Include("User").SingleOrDefault(x => x.AdvertisementId == response.AdvertisementId);
 
             return PartialView("_Details", model);
         }
@@ -161,7 +145,10 @@ namespace guestNetwork.Controllers
             {
                 return HttpNotFound();
             }
-            return View("_Delete", response);
+
+            var model = Mapper.Map<ResponseViewModel>(response);
+
+            return View("_Delete", model);
         }
 
         // POST: /Response/Delete/5
